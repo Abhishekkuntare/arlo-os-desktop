@@ -28,6 +28,157 @@
   const mobileMenu =
     document.getElementById("mobileMenu");
 
+  const consentStorageKey = "arlo-cookie-consent-v1";
+  const consentBanner = document.getElementById("cookie-banner");
+  const consentDialog = document.getElementById("cookie-preferences");
+  const experienceToggle = document.getElementById("cookie-experience-toggle");
+  const consentStatus = document.getElementById("cookie-status");
+  let savedConsent = null;
+  let optionalEnhancementsPromise = null;
+  let enhancementsEnabled = false;
+
+  const loadScript = src =>
+    new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      script.onload = resolve;
+      script.onerror = () => reject(new Error(`Unable to load optional resource: ${src}`));
+      document.head.append(script);
+    });
+
+  const loadOptionalEnhancements = () => {
+    if (optionalEnhancementsPromise) return optionalEnhancementsPromise;
+
+    optionalEnhancementsPromise = (async () => {
+      const fonts = document.createElement("link");
+      fonts.rel = "stylesheet";
+      fonts.href = "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap";
+      document.head.append(fonts);
+
+      await loadScript("https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js");
+      await loadScript("https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js");
+      await loadScript("https://unpkg.com/lenis@1.3.26/dist/lenis.min.js");
+      document.dispatchEvent(new Event("arlo:experience-ready"));
+    })().catch(error => {
+      optionalEnhancementsPromise = null;
+      console.error("ARLO OS experience enhancements could not be loaded:", error);
+      if (consentStatus) {
+        consentStatus.textContent =
+          "Your choice was saved, but some optional visual enhancements could not load.";
+      }
+    });
+
+    return optionalEnhancementsPromise;
+  };
+
+  const persistConsent = experience => {
+    const consent = {
+      version: 1,
+      experience,
+      savedAt: Date.now()
+    };
+    savedConsent = consent;
+
+    try {
+      window.localStorage.setItem(consentStorageKey, JSON.stringify(consent));
+    } catch (error) {
+      console.error("Unable to persist ARLO OS privacy preferences:", error);
+      if (consentStatus) {
+        consentStatus.textContent =
+          "Your choice applies for this visit, but your browser could not save it.";
+      }
+    }
+
+    if (consentDialog.open) consentDialog.close();
+    consentBanner.classList.remove("is-visible");
+    window.setTimeout(() => {
+      consentBanner.hidden = true;
+    }, 350);
+
+    if (experience) {
+      enhancementsEnabled = true;
+      loadOptionalEnhancements();
+    } else if (enhancementsEnabled) {
+      window.location.reload();
+    }
+  };
+
+  const openConsentPreferences = () => {
+    if (consentBanner) consentBanner.hidden = true;
+    if (experienceToggle) {
+      experienceToggle.checked = Boolean(savedConsent?.experience);
+    }
+    if (consentDialog && !consentDialog.open) consentDialog.showModal();
+  };
+
+  if (consentBanner && consentDialog) {
+    try {
+      const storedConsent = window.localStorage.getItem(consentStorageKey);
+      if (storedConsent) {
+        const parsedConsent = JSON.parse(storedConsent);
+        const isValidConsent =
+          parsedConsent?.version === 1 &&
+          typeof parsedConsent.experience === "boolean" &&
+          Number.isFinite(parsedConsent.savedAt);
+
+        if (isValidConsent) {
+          savedConsent = parsedConsent;
+          enhancementsEnabled = parsedConsent.experience;
+          if (enhancementsEnabled) loadOptionalEnhancements();
+        } else {
+          window.localStorage.removeItem(consentStorageKey);
+        }
+      }
+    } catch (error) {
+      console.error("Unable to read ARLO OS privacy preferences:", error);
+    }
+
+    if (!savedConsent) {
+      window.setTimeout(() => {
+        consentBanner.hidden = false;
+        window.requestAnimationFrame(() => consentBanner.classList.add("is-visible"));
+      }, 700);
+    }
+
+    document.querySelectorAll("[data-cookie-action]").forEach(button => {
+      button.addEventListener("click", () => {
+        switch (button.dataset.cookieAction) {
+          case "accept":
+            persistConsent(true);
+            break;
+          case "reject":
+            persistConsent(false);
+            break;
+          case "preferences":
+            openConsentPreferences();
+            break;
+          case "save":
+            persistConsent(Boolean(experienceToggle?.checked));
+            break;
+          case "close":
+            consentDialog.close();
+            if (!savedConsent) {
+              consentBanner.hidden = false;
+              window.requestAnimationFrame(() => consentBanner.classList.add("is-visible"));
+            }
+            break;
+        }
+      });
+    });
+
+    consentDialog.addEventListener("click", event => {
+      if (event.target === consentDialog) consentDialog.close();
+    });
+
+    consentDialog.addEventListener("close", () => {
+      if (!savedConsent) {
+        consentBanner.hidden = false;
+        window.requestAnimationFrame(() => consentBanner.classList.add("is-visible"));
+      }
+    });
+  }
+
 
   /* ==========================================================
      REDUCED MOTION
@@ -37,6 +188,224 @@
     window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+
+  const analyticsCounters =
+    document.querySelectorAll(".insight-number[data-count]");
+
+  if (analyticsCounters.length) {
+    const insightsStatus = document.getElementById("insights-status");
+    const refreshInsightsButton =
+      document.getElementById("insights-refresh");
+    const countryList = document.querySelector(".insights-country-list");
+
+    const formatCounter = (value, decimals) =>
+      new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      }).format(value);
+
+    const animateCounterTo = (counter, target, fromZero = false) => {
+      const decimals = Number(counter.dataset.decimals || 0);
+      if (reducedMotion) {
+        counter.textContent = formatCounter(target, decimals);
+        return;
+      }
+
+      const duration = 1400;
+      const startTime = performance.now();
+      const startValue = fromZero
+        ? 0
+        : Number(counter.textContent.replace(/,/g, "")) || 0;
+
+      const update = now => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const easedProgress = 1 - Math.pow(1 - progress, 4);
+        counter.textContent = formatCounter(
+          startValue + (target - startValue) * easedProgress,
+          decimals
+        );
+
+        if (progress < 1) {
+          window.requestAnimationFrame(update);
+        } else {
+          counter.textContent = formatCounter(target, decimals);
+        }
+      };
+
+      window.requestAnimationFrame(update);
+    };
+
+    const animateCounter = counter => {
+      const target = Number(counter.dataset.count);
+      if (!Number.isFinite(target)) {
+        throw new Error("Analytics counter has an invalid data-count value.");
+      }
+      animateCounterTo(counter, target, true);
+    };
+
+    const setInsightsStatus = (message, state) => {
+      if (!insightsStatus) return;
+      insightsStatus.dataset.state = state;
+      insightsStatus.innerHTML = `<span></span> ${message}`;
+    };
+
+    const marketName = market => {
+      if (market === "ZZ" || market === "UNKNOWN") return "Other / unknown market";
+      try {
+        return new Intl.DisplayNames(["en"], { type: "region" }).of(market) ||
+          `Other / ${market}`;
+      } catch {
+        return `Other / ${market}`;
+      }
+    };
+
+    const createCountryRow = (name, installs, percentage, isOther = false) => {
+      const row = document.createElement("div");
+      row.className = `insights-country-row${isOther ? " insights-country-other" : ""}`;
+      row.setAttribute("role", "row");
+
+      const country = document.createElement("span");
+      country.setAttribute("role", "cell");
+      country.textContent = name;
+
+      const value = document.createElement("span");
+      value.className = "insights-country-value";
+      value.setAttribute("role", "cell");
+
+      const bar = document.createElement("span");
+      bar.className = "insights-country-bar";
+      const fill = document.createElement("i");
+      fill.style.setProperty("--country-share", `${percentage}%`);
+      bar.append(fill);
+
+      const count = document.createElement("b");
+      count.textContent = formatCounter(installs, 0);
+
+      const share = document.createElement("small");
+      share.textContent = isOther ? "not Store" : `${percentage.toFixed(2)}%`;
+
+      value.append(bar, count, share);
+      row.append(country, value);
+      return row;
+    };
+
+    const renderCountries = (markets, otherDownloads) => {
+      if (!countryList) return;
+
+      const total = markets.reduce((sum, market) => sum + market.installs, 0);
+      const rows = markets.map(market => {
+        const percentage = total > 0
+          ? (market.installs / total) * 100
+          : 0;
+        return createCountryRow(
+          marketName(market.market),
+          market.installs,
+          percentage
+        );
+      });
+
+      rows.push(
+        createCountryRow(
+          "Other · outside Store report",
+          otherDownloads,
+          0,
+          true
+        )
+      );
+
+      const header = countryList.querySelector(".insights-country-header");
+      countryList.replaceChildren(header, ...rows);
+    };
+
+    const refreshInsights = async () => {
+      if (refreshInsightsButton) refreshInsightsButton.disabled = true;
+      setInsightsStatus("CONNECTING TO PARTNER CENTER", "loading");
+
+      try {
+        const refreshQuery = refreshInsightsButton
+          ? `?refresh=${Date.now()}`
+          : "";
+        const response = await fetch(`/api/insights${refreshQuery}`, {
+          headers: { Accept: "application/json" },
+          cache: "no-store"
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          if (response.status === 503) {
+            setInsightsStatus("SNAPSHOT · PARTNER CENTER NOT CONNECTED", "snapshot");
+          } else {
+            setInsightsStatus("LIVE REFRESH FAILED · SHOWING SNAPSHOT", "error");
+          }
+          if (data.error) console.error("ARLO OS analytics:", data.error);
+          return;
+        }
+
+        const validCounts = [
+          data.storeInstalls,
+          data.totalDownloads,
+          data.pageViews,
+          data.conversionRate,
+          data.otherDownloads
+        ].every(value => Number.isFinite(value) && value >= 0);
+
+        if (!validCounts || !Array.isArray(data.markets)) {
+          throw new Error("Partner Center returned an invalid analytics response.");
+        }
+
+        const updates = [
+          ["insight-download-total", data.totalDownloads],
+          ["insight-store-installs", data.storeInstalls],
+          ["insight-page-views", data.pageViews],
+          ["insight-conversion", data.conversionRate]
+        ];
+
+        updates.forEach(([id, value]) => {
+          const counter = document.getElementById(id);
+          if (counter) animateCounterTo(counter, value);
+        });
+
+        renderCountries(data.markets, data.otherDownloads);
+
+        const updatedAt = new Intl.DateTimeFormat("en", {
+          hour: "numeric",
+          minute: "2-digit",
+          timeZoneName: "short"
+        }).format(new Date(data.updatedAt));
+        setInsightsStatus(`LIVE · UPDATED ${updatedAt}`, "live");
+      } catch (error) {
+        console.error("ARLO OS analytics refresh failed:", error);
+        setInsightsStatus("LIVE REFRESH FAILED · SHOWING SNAPSHOT", "error");
+      } finally {
+        if (refreshInsightsButton) refreshInsightsButton.disabled = false;
+      }
+    };
+
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      analyticsCounters.forEach(animateCounter);
+    } else {
+      const counterObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.35 }
+      );
+
+      analyticsCounters.forEach(counter => counterObserver.observe(counter));
+    }
+
+    if (refreshInsightsButton) {
+      refreshInsightsButton.addEventListener("click", refreshInsights);
+    }
+    refreshInsights();
+    window.setInterval(() => {
+      if (document.visibilityState === "visible") refreshInsights();
+    }, 15 * 60 * 1000);
+  }
 
 
   /* ==========================================================
@@ -173,51 +542,46 @@
 
     let glowX = 0;
     let glowY = 0;
+    let glowFrame = 0;
 
+
+    const animateGlow = () => {
+      const deltaX = mouseX - glowX;
+      const deltaY = mouseY - glowY;
+
+      glowX += deltaX * .12;
+      glowY += deltaY * .12;
+      cursorGlow.style.transform =
+        `translate3d(${glowX}px, ${glowY}px, 0) translate(-50%, -50%)`;
+
+      if (Math.abs(deltaX) > .1 || Math.abs(deltaY) > .1) {
+        glowFrame = window.requestAnimationFrame(animateGlow);
+      } else {
+        glowX = mouseX;
+        glowY = mouseY;
+        cursorGlow.style.transform =
+          `translate3d(${glowX}px, ${glowY}px, 0) translate(-50%, -50%)`;
+        glowFrame = 0;
+      }
+    };
 
     window.addEventListener(
-      "mousemove",
+      "pointermove",
       event => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        cursorGlow.style.opacity = "1";
 
-        mouseX =
-          event.clientX;
-
-        mouseY =
-          event.clientY;
-
-        cursorGlow.style.opacity =
-          "1";
-
+        if (!glowFrame) {
+          glowFrame = window.requestAnimationFrame(animateGlow);
+        }
       },
-      {
-        passive: true
-      }
+      { passive: true }
     );
 
-
-    const animateGlow =
-      () => {
-
-        glowX +=
-          (mouseX - glowX) * .08;
-
-        glowY +=
-          (mouseY - glowY) * .08;
-
-        cursorGlow.style.left =
-          `${glowX}px`;
-
-        cursorGlow.style.top =
-          `${glowY}px`;
-
-        requestAnimationFrame(
-          animateGlow
-        );
-
-      };
-
-
-    animateGlow();
+    window.addEventListener("pointerleave", () => {
+      cursorGlow.style.opacity = "0";
+    });
 
   }
 
@@ -272,7 +636,11 @@
     // animation dependency is unavailable. The content must always render.
     if (reducedMotion || !gsapAvailable || !scrollTriggerAvailable) {
 
-      if (!reducedMotion && (!gsapAvailable || !scrollTriggerAvailable)) {
+      if (
+        enhancementsEnabled &&
+        !reducedMotion &&
+        (!gsapAvailable || !scrollTriggerAvailable)
+      ) {
         window.setTimeout(() => {
           if (!gsapInitialized) initGSAP();
         }, 400);
@@ -1004,5 +1372,7 @@
     initGSAP();
 
   }
+
+  document.addEventListener("arlo:experience-ready", initGSAP);
 
 })();

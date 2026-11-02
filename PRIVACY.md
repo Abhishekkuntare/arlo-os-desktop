@@ -60,6 +60,26 @@ Examples can include:
 
 The application should not be interpreted as completely offline software when an enabled feature requires network access.
 
+### Website privacy choices
+
+The ARLO OS website asks visitors to choose whether optional presentation
+enhancements may load. The choice is stored in the browser's local storage so
+the notice is not shown again; it is not used to identify visitors or track
+their activity. Essential storage only remembers that choice.
+
+If a visitor allows experience enhancements, the site loads Google Fonts,
+GSAP, and Lenis from their respective providers for typography, animation, and
+smooth scrolling. Those providers receive the browser's network request and
+may process connection metadata such as an IP address. These enhancements are
+optional; the website remains usable when they are declined. The site does not
+currently use advertising or visitor analytics cookies.
+
+The public Insights section retrieves aggregate Microsoft Store figures from
+Partner Center using a server-side integration. Visitors do not send Partner
+Center credentials to Microsoft, and this integration does not identify or
+track individual website visitors. The website host may process routine
+connection logs under its own privacy and retention practices.
+
 During first-time setup, users may choose **Share profile & enter ARLO OS** to share their name, display name, username, selected roles, email address, and profile photo with the project. This explicit choice sends these details to the project's private Supabase database, where they are visible through the authenticated administrator dashboard. Users who choose **Continue locally** keep their profile on their device.
 
 Users can also choose **Share and sync my profile** from **Settings → User Profile**. This explicit action shares the selected “What do you do?” roles and profile details, including an optional profile photo and optional language or preferred-country settings when provided. A random installation identifier is used to match repeat syncs. Neither action sends the screen-lock PIN.

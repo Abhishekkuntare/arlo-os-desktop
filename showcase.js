@@ -230,16 +230,23 @@
       if (!cards.length) return;
       const trackBounds = galleryTrack.getBoundingClientRect();
       const trackCenter = trackBounds.left + trackBounds.width / 2;
-      const visibleIndex = cards.reduce((closestIndex, card, cardIndex) => {
+      let visibleIndex = 0;
+      let closestDistance = Infinity;
+
+      cards.forEach((card, cardIndex) => {
         const bounds = card.getBoundingClientRect();
-        const center = bounds.left + bounds.width / 2;
-        const closest = cards[closestIndex].getBoundingClientRect();
-        return Math.abs(center - trackCenter) < Math.abs(closest.left + closest.width / 2 - trackCenter)
-          ? cardIndex
-          : closestIndex;
-      }, 0);
-      index = currentPage * pageSize + visibleIndex;
-      setGalleryPosition();
+        const distance = Math.abs(bounds.left + bounds.width / 2 - trackCenter);
+        if (distance < closestDistance) {
+          visibleIndex = cardIndex;
+          closestDistance = distance;
+        }
+      });
+
+      const nextIndex = currentPage * pageSize + visibleIndex;
+      if (nextIndex !== index) {
+        index = nextIndex;
+        setGalleryPosition();
+      }
     });
   }, { passive: true });
 

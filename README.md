@@ -32,6 +32,45 @@ The project combines a familiar desktop workflow with a responsive interface, bu
 
 Features may evolve as the project develops.
 
+### Website analytics
+
+The website's Insights section can refresh Microsoft Store installs, country
+breakdowns, product-page views, and conversion from the Microsoft Store
+analytics API. To enable it locally or on Vercel:
+
+1. Associate your Partner Center account with its Microsoft Entra directory.
+2. Add a Microsoft Entra application to Partner Center and give it the
+   **Manager** role. Create a client secret for that application.
+3. Configure `MS_PARTNER_TENANT_ID`, `MS_PARTNER_CLIENT_ID`, and
+   `MS_PARTNER_CLIENT_SECRET` as server-only environment variables. Set
+   `MS_STORE_APP_ID` to your Store ID if it differs from `9NN6LSN1KSZF`.
+4. Set `ARLO_OTHER_DOWNLOADS` to the verified number of downloads outside the
+   Microsoft Store. Partner Center cannot report downloads from other sources.
+
+Use `.env.example` as the local variable-name template. Never prefix these
+credentials with `NEXT_PUBLIC_` or commit their values. In Vercel, add them in
+the project's Environment Variables settings and redeploy. Without the
+credentials, the page displays the supplied 46-download snapshot and clearly
+marks it as a snapshot; it does not pretend the data is live. Configured Store
+metrics refresh on page load and every 15 minutes. Microsoft Store data covers
+the last 30 days; non-Store downloads remain a separate manually maintained
+count.
+
+Microsoft's setup and API references:
+
+* [Access analytics data using Store services](https://learn.microsoft.com/en-us/windows/uwp/monetize/access-analytics-data-using-windows-store-services)
+* [Get app installs](https://learn.microsoft.com/en-us/windows/uwp/monetize/get-app-installs)
+* [Get app acquisition funnel data](https://learn.microsoft.com/en-us/windows/uwp/monetize/get-acquisition-funnel-data)
+
+### Website cookie preferences
+
+The cookie notice remembers a visitor's choice in browser local storage. The
+site does not use advertising or visitor analytics cookies. Google Fonts, GSAP,
+and Lenis are loaded only when the visitor allows optional experience
+enhancements; declining them leaves the site usable with system fonts and
+native scrolling. Visitors can reopen and change their choice with the
+**Cookie preferences** link in the footer.
+
 ### Desktop themes
 
 The Themes section in Settings offers animated previews for 29 visual themes. ARLO OS's original appearance is the default; selecting a theme applies its colors and surfaces across the desktop, system panels, and built-in applications, and the choice is saved between launches. Use **Original Desktop** to restore the default appearance.

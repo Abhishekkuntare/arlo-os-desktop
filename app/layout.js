@@ -1,4 +1,3 @@
-import Script from "next/script";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import "../styles.css";
@@ -50,33 +49,11 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="theme-color" content="#08090d" />
         <meta name="arlo-media-version" content={mediaManifest.version} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body>
         {children}
-        <Script
-          src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"
-          strategy="afterInteractive"
-        />
-        <Script src="/site/script.js" strategy="afterInteractive" />
-        <Script src="/site/showcase.js" strategy="afterInteractive" />
+        <script src="/site/script.js" defer />
+        <script src="/site/showcase.js" defer />
       </body>
     </html>
   );

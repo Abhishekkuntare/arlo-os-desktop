@@ -120,6 +120,12 @@ button {
 
 }
 
+@media (max-width: 700px), (pointer: coarse) {
+  .noise {
+    display: none;
+  }
+}
+
 
 /* ============================================================
    CURSOR
@@ -4913,5 +4919,4 @@ footer {
     font-size: 13px;
   }
 }
-
 

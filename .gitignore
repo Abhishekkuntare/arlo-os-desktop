@@ -14,3 +14,7 @@
 /public/site/
 /public/robots.txt
 /public/sitemap.xml
+
+# Local environment variables (keep secrets out of source control)
+.env*
+!.env.example
