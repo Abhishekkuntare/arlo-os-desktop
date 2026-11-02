@@ -29,6 +29,13 @@
   };
 
   const gallery = [
+    ["ARLO Phone - App Library.png", "ARLO Phone App Library", "Browse responsive ARLO apps in a selectable iPhone, Galaxy or Pixel simulator.", "Apps"],
+    ["ARLO Phone - Lock Screen.png", "ARLO Phone Lock Screen", "Unlock the phone simulator with its own wallpaper, live clock and notification shortcuts.", "System"],
+    ["ARLO Phone - Desktop Home.png", "ARLO Phone Home Screen", "See phone apps, widgets and a personalized home screen inside the desktop.", "Apps"],
+    ["ARLO Phone - Media and YouTube.png", "ARLO Phone Media", "Use phone-ready apps and media alongside ARLO desktop widgets.", "Apps"],
+    ["ARLO Phone - Quick Panel.png", "ARLO Phone Quick Panel", "Reach phone controls, playback and device status in a compact quick panel.", "System"],
+    ["ARLO Aura - Desktop Lighting.png", "ARLO Aura Edge Lighting", "Bring animated, event-aware ambient lighting to the edges of the desktop.", "Personalization"],
+    ["ARLO Aura - Lighting Settings.png", "ARLO Aura Styles", "Choose from 10 lighting styles and tune colors, brightness, speed and edges.", "Personalization"],
     ["AI Agents.png", "AI Agents", "Meet a team of helpful, purpose-built desktop assistants.", "AI & agents"],
     ["Activity app.png", "Activity", "See your recent desktop actions and pick up where you left off.", "Productivity"],
     ["Ai agents Daily detective.png", "Daily Detective", "Let an AI detective help investigate your daily questions.", "AI & agents"],

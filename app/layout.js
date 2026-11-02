@@ -9,7 +9,7 @@ const mediaManifest = JSON.parse(
 
 export const metadata = {
   metadataBase: new URL("https://arloos.vercel.app/"),
-  title: "ARLO OS — Modern Windows Desktop",
+  title: "ARLO OS — Modern Windows Desktop For You",
   description:
     "Discover ARLO OS, a modern, customizable Windows desktop with built-in apps, developer tools and optional Ghost AI. macOS and Linux releases are coming soon.",
   alternates: {
@@ -18,7 +18,7 @@ export const metadata = {
   openGraph: {
     type: "website",
     siteName: "ARLO OS",
-    title: "ARLO OS — Modern Windows Desktop",
+    title: "ARLO OS — Modern Windows Desktop For You",
     description:
       "A modern, customizable Windows desktop with built-in apps, developer tools and optional Ghost AI. macOS and Linux releases are coming soon.",
     url: "/",
@@ -32,7 +32,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ARLO OS — Modern Windows Desktop",
+    title: "ARLO OS — Modern Windows Desktop For You",
     description:
       "Discover the customizable ARLO OS desktop, built-in apps, developer tools and optional Ghost AI. macOS and Linux releases are coming soon.",
     images: ["/images/Screenshot%20%28439%29.png"]

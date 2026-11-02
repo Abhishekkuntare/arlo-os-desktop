@@ -335,7 +335,7 @@
           if (response.status === 503) {
             setInsightsStatus("SNAPSHOT · PARTNER CENTER NOT CONNECTED", "snapshot");
           } else {
-            setInsightsStatus("LIVE REFRESH FAILED · SHOWING SNAPSHOT", "error");
+            setInsightsStatus("SNAPSHOT · SHARED FIGURES", "snapshot");
           }
           if (data.error) console.error("ARLO OS analytics:", data.error);
           return;
@@ -375,7 +375,7 @@
         setInsightsStatus(`LIVE · UPDATED ${updatedAt}`, "live");
       } catch (error) {
         console.error("ARLO OS analytics refresh failed:", error);
-        setInsightsStatus("LIVE REFRESH FAILED · SHOWING SNAPSHOT", "error");
+        setInsightsStatus("SNAPSHOT · SHARED FIGURES", "snapshot");
       } finally {
         if (refreshInsightsButton) refreshInsightsButton.disabled = false;
       }
