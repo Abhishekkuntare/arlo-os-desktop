@@ -393,8 +393,10 @@ button:disabled{cursor:not-allowed;opacity:.55}
 .insights-panel-heading h3{margin:7px 0 0;color:#e3e5ee;font-family:"Space Grotesk",sans-serif;font-size:15px;letter-spacing:-.025em}
 .insights-panel-note{flex:none;padding:6px 8px;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#70798d;font-size:7px;font-weight:700;letter-spacing:.1em}
 .insights-panel-icon{display:grid;width:30px;height:30px;place-items:center;border:1px solid rgba(255,255,255,.08);border-radius:9px;color:#abb7ff}
+.insights-country-list{max-height:262px;overflow-y:auto;overscroll-behavior:contain;scrollbar-color:rgba(151,164,255,.42) rgba(255,255,255,.035);scrollbar-width:thin}
+.insights-country-list:focus-visible{outline:2px solid rgba(167,179,255,.55);outline-offset:3px}
 .insights-country-row{display:grid;grid-template-columns:minmax(100px,1fr) minmax(160px,.9fr);align-items:center;gap:12px;min-height:39px;border-top:1px solid rgba(255,255,255,.045);color:#b9becb;font-size:10px}
-.insights-country-header{min-height:28px;border-top:0;color:#697184;font-size:7px;font-weight:800;letter-spacing:.1em}
+.insights-country-header{position:sticky;top:0;z-index:1;min-height:28px;border-top:0;background:#11141e;color:#858da0;font-size:7px;font-weight:800;letter-spacing:.1em}
 .insights-country-value{display:grid;grid-template-columns:minmax(36px,1fr) 18px 44px;align-items:center;gap:9px;color:#dfe2ef}
 .insights-country-value b{font-size:9px;font-weight:700}
 .insights-country-value small{color:#70798d;font-size:8px;text-align:right}
