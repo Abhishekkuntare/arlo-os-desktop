@@ -39,17 +39,17 @@
 .video-chrome-right { margin-left:auto; color:#4f5665; }
 
 .showcase-video-viewport { position:relative; aspect-ratio:16 / 9; background:#05070a; overflow:hidden; }
-.synthesia-launch { position:absolute; inset:0; width:100%; height:100%; display:grid; place-items:center; overflow:hidden; padding:0; border:0; color:#fff; background:radial-gradient(ellipse at 50% 35%,rgba(83,100,219,.2),transparent 58%),#080a10; cursor:pointer; text-align:left; }
-.synthesia-launch:focus-visible { outline:2px solid #c7ceff; outline-offset:-5px; }
-.synthesia-launch img { position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:cover; filter:brightness(.68) saturate(.9); transition:transform .7s cubic-bezier(.2,.75,.2,1),filter .4s ease; }
-.synthesia-launch::after { position:absolute; inset:0; content:""; background:linear-gradient(180deg,rgba(4,6,12,.12),transparent 38%,rgba(4,6,12,.76)); pointer-events:none; }
-.synthesia-launch:hover img { transform:scale(1.035); filter:brightness(.78) saturate(1); }
-.synthesia-launch-play { position:relative; z-index:1; width:76px; height:76px; display:grid; place-items:center; padding-left:4px; border:1px solid rgba(255,255,255,.46); border-radius:50%; color:#fff; background:rgba(12,15,27,.58); box-shadow:0 18px 60px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.28); backdrop-filter:blur(16px); font-size:20px; transition:transform .25s ease,background .25s ease; }
-.synthesia-launch:hover .synthesia-launch-play { transform:scale(1.08); background:rgba(52,65,143,.72); }
-.synthesia-launch-caption { position:absolute; z-index:1; left:clamp(18px,4vw,42px); bottom:clamp(18px,4vw,38px); display:grid; gap:5px; }
-.synthesia-launch-caption strong { font-family:"Space Grotesk",sans-serif; font-size:clamp(16px,2.2vw,24px); letter-spacing:-.03em; }
-.synthesia-launch-caption small { color:rgba(238,241,255,.76); font-size:clamp(9px,1vw,11px); letter-spacing:.04em; }
-.synthesia-player { position:absolute; inset:0; width:100%; height:100%; border:0; background:#05070a; }
+.youtube-launch { position:absolute; inset:0; width:100%; height:100%; display:grid; place-items:center; overflow:hidden; padding:0; border:0; color:#fff; background:radial-gradient(ellipse at 50% 35%,rgba(83,100,219,.2),transparent 58%),#080a10; cursor:pointer; text-align:left; }
+.youtube-launch:focus-visible { outline:2px solid #c7ceff; outline-offset:-5px; }
+.youtube-launch img { position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:cover; filter:brightness(.68) saturate(.9); transition:transform .7s cubic-bezier(.2,.75,.2,1),filter .4s ease; }
+.youtube-launch::after { position:absolute; inset:0; content:""; background:linear-gradient(180deg,rgba(4,6,12,.12),transparent 38%,rgba(4,6,12,.76)); pointer-events:none; }
+.youtube-launch:hover img { transform:scale(1.035); filter:brightness(.78) saturate(1); }
+.youtube-launch-play { position:relative; z-index:1; width:76px; height:76px; display:grid; place-items:center; padding-left:4px; border:1px solid rgba(255,255,255,.46); border-radius:50%; color:#fff; background:rgba(12,15,27,.58); box-shadow:0 18px 60px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.28); backdrop-filter:blur(16px); font-size:20px; transition:transform .25s ease,background .25s ease; }
+.youtube-launch:hover .youtube-launch-play { transform:scale(1.08); background:rgba(52,65,143,.72); }
+.youtube-launch-caption { position:absolute; z-index:1; left:clamp(18px,4vw,42px); bottom:clamp(18px,4vw,38px); display:grid; gap:5px; }
+.youtube-launch-caption strong { font-family:"Space Grotesk",sans-serif; font-size:clamp(16px,2.2vw,24px); letter-spacing:-.03em; }
+.youtube-launch-caption small { color:rgba(238,241,255,.76); font-size:clamp(9px,1vw,11px); letter-spacing:.04em; }
+.youtube-player { position:absolute; inset:0; width:100%; height:100%; border:0; background:#05070a; }
 
 .video-floating-badge { position:absolute; z-index:7; display:flex; align-items:center; gap:8px; border:1px solid rgba(255,255,255,.12); border-radius:999px; background:rgba(10,12,18,.68); backdrop-filter:blur(18px); box-shadow:0 18px 45px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.08); color:#aeb5c7; letter-spacing:.1em; font-size:8px; font-weight:800; }
 .video-badge-top { top:24px; left:5%; padding:10px 13px; }
@@ -105,11 +105,11 @@ body.lightbox-open { overflow:hidden; }
   .system-gallery-grid{grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:210px}.system-shot-large,.system-shot-featured,.system-shot-wide{grid-column:span 6}.system-shot-tall{grid-column:span 3}.system-shot:not(.system-shot-large):not(.system-shot-tall):not(.system-shot-wide):not(.system-shot-featured){grid-column:span 3}
 }
 @media (max-width:700px){
-  .system-showcase{width:calc(100% - 32px);padding:10px 0 50px}.showcase-heading-row h2{font-size:clamp(42px,12vw,65px)}.showcase-video-frame{border-radius:19px;transform:none}.showcase-video-chrome{height:42px;padding:0 12px;font-size:7px}.video-chrome-right{display:none}.synthesia-launch-play{width:58px;height:58px;font-size:16px}.synthesia-launch-caption{left:18px;bottom:17px}.video-floating-badge{display:none}.showcase-metrics{border-radius:16px}.showcase-metrics>div{min-height:84px;padding:15px}.showcase-metrics strong{font-size:10px}.showcase-metrics small{font-size:8px}
+  .system-showcase{width:calc(100% - 32px);padding:10px 0 50px}.showcase-heading-row h2{font-size:clamp(42px,12vw,65px)}.showcase-video-frame{border-radius:19px;transform:none}.showcase-video-chrome{height:42px;padding:0 12px;font-size:7px}.video-chrome-right{display:none}.youtube-launch-play{width:58px;height:58px;font-size:16px}.youtube-launch-caption{left:18px;bottom:17px}.video-floating-badge{display:none}.showcase-metrics{border-radius:16px}.showcase-metrics>div{min-height:84px;padding:15px}.showcase-metrics strong{font-size:10px}.showcase-metrics small{font-size:8px}
   .system-gallery{padding-top:75px}.system-gallery-grid{grid-template-columns:1fr;grid-auto-rows:auto;gap:12px;margin-top:40px}.system-shot,.system-shot-large,.system-shot-tall,.system-shot-wide,.system-shot-featured,.system-shot:not(.system-shot-large):not(.system-shot-tall):not(.system-shot-wide):not(.system-shot-featured){grid-column:auto;aspect-ratio:16/9}.shot-overlay i{opacity:1;transform:none}
   .gallery-lightbox{padding:12px}.lightbox-panel{border-radius:18px}.lightbox-media{min-height:52vh;padding:15px 46px}.lightbox-media img{max-height:52vh}.lightbox-arrow{width:36px;height:36px}.lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-caption{min-height:65px;padding:12px 15px}.lightbox-caption h3{font-size:16px}#lightboxHint{display:none}
 }
-@media (prefers-reduced-motion:reduce){.live-pulse{animation:none}.system-shot,.showcase-video-frame,.lightbox-panel{transform:none!important}.system-shot,.showcase-metrics{opacity:1!important}.synthesia-launch img,.synthesia-launch-play{transition:none}}
+@media (prefers-reduced-motion:reduce){.live-pulse{animation:none}.system-shot,.showcase-video-frame,.lightbox-panel{transform:none!important}.system-shot,.showcase-metrics{opacity:1!important}.youtube-launch img,.youtube-launch-play{transition:none}}
 
 /* ARLO OS identity and interaction polish */
 .nav{position:sticky;top:12px;width:min(1240px,calc(100% - 48px));height:76px;margin:12px auto 0;padding:0 20px;border:1px solid rgba(255,255,255,.09);border-radius:22px;background:rgba(11,13,21,.72);backdrop-filter:blur(24px) saturate(135%);box-shadow:0 16px 50px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.06);transition:background .3s ease,border-color .3s ease,box-shadow .3s ease}
@@ -123,10 +123,28 @@ body.lightbox-open { overflow:hidden; }
 .desktop-nav a:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.06);box-shadow:0 8px 24px rgba(0,0,0,.16)}
 .desktop-nav .nav-store{padding:10px 14px;border-color:rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(130,103,220,.09))}
 .desktop-nav .nav-github{padding:10px 14px}
-.hero-brand-lockup{display:grid;width:max-content;justify-items:center;gap:0;margin:0 auto 24px}
-.hero-brand-lockup>img{display:block;width:112px;height:76px;object-fit:contain;border-radius:18px;filter:drop-shadow(0 12px 30px rgba(71,127,255,.19))}
-.hero-wordmark{display:block;width:clamp(250px,28vw,320px);height:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.2))}
-.hero-brand-lockup>.hero-wordmark{width:clamp(250px,28vw,320px);height:auto}
+.arlo-mascot-defs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+.arlo-mascot{position:relative;display:block;flex:0 0 auto;aspect-ratio:1;padding:0;border:0;border-radius:24%;background:transparent;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.arlo-mascot>svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 9px 22px rgba(34,139,255,.2));animation:arlo-mascot-float 5s ease-in-out infinite}
+.arlo-mascot--nav{width:52px;height:52px}
+.arlo-mascot--hero{width:112px;height:112px;margin:0 auto 30px}
+.arlo-mascot--footer{width:44px;height:44px}
+.arlo-mascot-eyes{transform-box:fill-box;transform-origin:center;transition:transform .12s ease}
+.arlo-mascot-blush{opacity:0;transform:scale(.62);transform-box:fill-box;transform-origin:center;transition:opacity .2s ease,transform .24s cubic-bezier(.2,.8,.2,1)}
+.arlo-mascot-smile,.arlo-mascot-surprise{transition:opacity .2s ease,transform .24s cubic-bezier(.2,.8,.2,1);transform-box:fill-box;transform-origin:center}
+.arlo-mascot-surprise{opacity:0;transform:scale(.5)}
+.arlo-mascot:hover .arlo-mascot-blush,.arlo-mascot.is-hovered .arlo-mascot-blush,.brand:hover .arlo-mascot-blush,.brand:focus-visible .arlo-mascot-blush{opacity:1;transform:scale(1)}
+.arlo-mascot:hover .arlo-mascot-smile,.arlo-mascot.is-hovered .arlo-mascot-smile,.brand:hover .arlo-mascot-smile,.brand:focus-visible .arlo-mascot-smile{transform:translateY(2px) scaleX(1.05)}
+.arlo-mascot:hover,.brand:hover .arlo-mascot{filter:drop-shadow(0 0 15px rgba(88,174,255,.34))}
+.arlo-mascot.is-blinking .arlo-mascot-eyes{transform:scaleY(.08)}
+.arlo-mascot.is-surprised .arlo-mascot-eyes{transform:scale(1.08,1.14)}
+.arlo-mascot.is-surprised .arlo-mascot-smile{opacity:0;transform:scale(.5)}
+.arlo-mascot.is-surprised .arlo-mascot-surprise{opacity:1;transform:scale(1)}
+.arlo-mascot.is-surprised>svg{animation:arlo-mascot-boop .54s cubic-bezier(.2,.8,.2,1)}
+.arlo-mascot--hero:focus-visible,.brand:focus-visible .arlo-mascot{outline:2px solid rgba(135,202,255,.9);outline-offset:7px}
+.arlo-mascot-defs symbol{overflow:visible}
+@keyframes arlo-mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes arlo-mascot-boop{0%{transform:scale(1)}22%{transform:scale(1.1,.88)}48%{transform:scale(.96,1.06)}72%{transform:scale(1.025,.98)}100%{transform:scale(1)}}
 .hero-eyebrow{margin-top:8px}
 .nav-store{padding:10px 13px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.045);color:#e5e8f2!important}
 .nav-store span{margin-left:4px;opacity:.65}
@@ -240,9 +258,7 @@ button:disabled{cursor:not-allowed;opacity:.55}
   .nav{top:8px;width:calc(100% - 28px);height:66px;margin-top:8px;padding-inline:14px;border-radius:19px}
   .brand-symbol{width:46px;height:36px}
   .brand-wordmark{width:136px;height:41px}
-  .hero-brand-lockup{margin-bottom:22px}
-  .hero-brand-lockup>img{width:92px;height:65px}
-  .hero-brand-lockup>.hero-wordmark{width:min(250px,76vw);height:auto}
+  .arlo-mascot--hero{width:96px;height:96px;margin-bottom:24px}
   .system-gallery-grid{gap:12px;padding:8px 5% 22px}
   .system-gallery-grid .system-shot{flex-basis:84vw;border-radius:18px}
   .system-gallery-grid .system-shot img{aspect-ratio:16/10}
@@ -253,6 +269,9 @@ button:disabled{cursor:not-allowed;opacity:.55}
   html{scroll-behavior:auto}
   button:not(.system-shot){transition:none}
   .mobile-menu-button span{transition:none}
+  .arlo-mascot>svg{animation:none}
+  .arlo-mascot.is-surprised>svg{animation:none}
+  .arlo-mascot-eyes,.arlo-mascot-blush,.arlo-mascot-smile,.arlo-mascot-surprise{transition:none}
   .experience-card,.feature,.install-step,.spec-card,.release-card{transform:none!important;transition:none}
   .button,.mobile-menu-button,.gallery-arrow,.lightbox-arrow,.lab-command-result,.lab-dock-icon,.lab-toggle,.os-lab-window-meta button{transition:none}
   .system-gallery-grid{scroll-behavior:auto}

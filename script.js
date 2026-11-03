@@ -717,16 +717,21 @@
         }
       });
 
+    const compactMotion = window.matchMedia("(max-width: 700px)").matches;
+    const heroRise = compactMotion ? 42 : 72;
+
 
     hero
 
       .from(
-        ".hero-brand-lockup",
+        ".arlo-mascot--hero",
         {
-          y: 18,
+          y: 16,
+          scale: .88,
           opacity: 0,
-          duration: .85
-        }
+          duration: .75
+        },
+        0
       )
 
       .from(
@@ -741,10 +746,10 @@
       .from(
         ".title-line",
         {
-          y: 80,
+          y: heroRise,
           opacity: 0,
-          duration: 1.1,
-          stagger: .13
+          duration: compactMotion ? .8 : 1,
+          stagger: .12
         },
         "-=.2"
       )
@@ -782,10 +787,10 @@
       .from(
         ".desktop-stage",
         {
-          y: 80,
+          y: compactMotion ? 44 : 72,
           opacity: 0,
-          scale: .94,
-          duration: 1.2,
+          scale: compactMotion ? .98 : .95,
+          duration: compactMotion ? .9 : 1.1,
           ease:
             "power3.out"
         },
@@ -819,18 +824,6 @@
           "sine.inOut"
       }
     );
-
-    gsap.to(
-      ".hero-brand-lockup > img",
-      {
-        y: -5,
-        duration: 3.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      }
-    );
-
 
     gsap.to(
       ".floating-pill",
@@ -925,41 +918,35 @@
       "undefined"
     ) {
 
-      document
-        .querySelectorAll(".reveal")
-        .forEach(element => {
+      const revealTargets = gsap.utils.toArray(".reveal");
+      const revealDistance = compactMotion ? 22 : 34;
 
+      window.ScrollTrigger.batch(revealTargets, {
+        start: "top 88%",
+        once: true,
+        interval: .12,
+        batchMax: compactMotion ? 2 : 4,
+        onEnter: elements => {
           gsap.fromTo(
-            element,
+            elements,
             {
-              opacity: 0,
-              y: 45
+              autoAlpha: 0,
+              y: revealDistance,
+              scale: .985
             },
             {
-              opacity: 1,
+              autoAlpha: 1,
               y: 0,
-              duration: .9,
-              ease:
-                "power3.out",
-              clearProps: "transform",
-
-              scrollTrigger: {
-
-                trigger:
-                  element,
-
-                start:
-                  "top 84%",
-
-                once:
-                  true
-
-              }
-
+              scale: 1,
+              duration: compactMotion ? .62 : .78,
+              stagger: compactMotion ? .06 : .09,
+              ease: "power3.out",
+              overwrite: "auto",
+              clearProps: "transform,opacity,visibility"
             }
           );
-
-        });
+        }
+      });
 
 
       /* Experience cards use their individual .reveal animations above. */
@@ -979,79 +966,42 @@
          PARALLAX
       ==================================================== */
 
-      gsap.to(
-        ".window-card",
-        {
+      const parallaxMedia = gsap.matchMedia();
+      parallaxMedia.add("(min-width: 701px)", () => {
+        gsap.to(".window-card", {
           y: -45,
-
           scrollTrigger: {
-
-            trigger:
-              ".desktop-stage",
-
-            start:
-              "top bottom",
-
-            end:
-              "bottom top",
-
-            scrub:
-              1.2
-
+            trigger: ".desktop-stage",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.2
           }
+        });
 
-        }
-      );
-
-
-      gsap.to(
-        ".stage-glow",
-        {
+        gsap.to(".stage-glow", {
           y: -70,
-
           scrollTrigger: {
-
-            trigger:
-              ".desktop-stage",
-
-            start:
-              "top bottom",
-
-            end:
-              "bottom top",
-
-            scrub:
-              1.5
-
+            trigger: ".desktop-stage",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.5
           }
+        });
 
+        const developerGlow = document.querySelector(".developer-glow");
+        const developerSection = document.querySelector(".developer-section");
+        if (developerGlow && developerSection) {
+          gsap.to(developerGlow, {
+            y: -100,
+            scrollTrigger: {
+              trigger: developerSection,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.5
+            }
+          });
         }
-      );
-
-
-      gsap.to(
-        ".developer-glow",
-        {
-          y: -100,
-
-          scrollTrigger: {
-
-            trigger:
-              ".developer-section",
-
-            start:
-              "top bottom",
-
-            end:
-              "bottom top",
-
-            scrub:
-              1.5
-
-          }
-
-        }
-      );
+      });
 
     }
 
@@ -1401,4 +1351,76 @@
 
   document.addEventListener("arlo:experience-ready", initGSAP);
 
+})();
+
+(() => {
+  "use strict";
+
+  const mascots = Array.from(document.querySelectorAll("[data-arlo-mascot]"));
+  if (!mascots.length) return;
+
+  let pointer = null;
+  let gazeFrame = 0;
+  const reactionTimers = new WeakMap();
+
+  const updateGaze = () => {
+    gazeFrame = 0;
+    if (!pointer) return;
+
+    mascots.forEach(mascot => {
+      const eyes = mascot.querySelector(".arlo-mascot-eyes");
+      if (!eyes) return;
+
+      const bounds = mascot.getBoundingClientRect();
+      const dx = pointer.x - (bounds.left + bounds.width / 2);
+      const dy = pointer.y - (bounds.top + bounds.height / 2);
+      const horizontalRange = Math.max(window.innerWidth * 0.42, 180);
+      const verticalRange = Math.max(window.innerHeight * 0.42, 180);
+      const x = Math.max(-1, Math.min(1, dx / horizontalRange)) * 4.5;
+      const y = Math.max(-1, Math.min(1, dy / verticalRange)) * 3.5;
+      eyes.setAttribute("transform", `translate(${x.toFixed(2)} ${y.toFixed(2)})`);
+    });
+  };
+
+  const scheduleGaze = () => {
+    if (gazeFrame) return;
+    gazeFrame = window.requestAnimationFrame(updateGaze);
+  };
+
+  window.addEventListener("pointermove", event => {
+    pointer = { x: event.clientX, y: event.clientY };
+    scheduleGaze();
+  }, { passive: true });
+  window.addEventListener("scroll", scheduleGaze, { passive: true });
+  window.addEventListener("resize", scheduleGaze, { passive: true });
+
+  const scheduleBlink = mascot => {
+    const delay = 2400 + Math.random() * 3000;
+    window.setTimeout(() => {
+      if (!mascot.classList.contains("is-surprised")) {
+        mascot.classList.add("is-blinking");
+        window.setTimeout(() => mascot.classList.remove("is-blinking"), 140);
+      }
+      scheduleBlink(mascot);
+    }, delay);
+  };
+
+  mascots.forEach(mascot => {
+    mascot.addEventListener("pointerenter", () => mascot.classList.add("is-hovered"));
+    mascot.addEventListener("pointerleave", () => mascot.classList.remove("is-hovered"));
+    scheduleBlink(mascot);
+  });
+
+  document.addEventListener("click", () => {
+    mascots.forEach(mascot => {
+      window.clearTimeout(reactionTimers.get(mascot));
+      mascot.classList.remove("is-blinking", "is-surprised");
+      void mascot.offsetWidth;
+      mascot.classList.add("is-surprised");
+      reactionTimers.set(
+        mascot,
+        window.setTimeout(() => mascot.classList.remove("is-surprised"), 680)
+      );
+    });
+  });
 })();

@@ -4,7 +4,7 @@
 (() => {
   "use strict";
 
-  const synthesiaLaunch = document.getElementById("synthesiaLaunch");
+  const youtubeLaunch = document.getElementById("youtubeLaunch");
   const videoViewport = document.getElementById("showcaseVideoViewport");
   const videoShell = document.getElementById("showcaseVideoShell");
   const galleryTrack = document.getElementById("systemGalleryTrack");
@@ -266,15 +266,16 @@
     });
   }, { passive: true });
 
-  synthesiaLaunch?.addEventListener("click", () => {
-    if (!videoViewport || !synthesiaLaunch) return;
+  youtubeLaunch?.addEventListener("click", () => {
+    if (!videoViewport || !youtubeLaunch) return;
 
     const iframe = document.createElement("iframe");
-    iframe.className = "synthesia-player";
-    iframe.src = "https://share.synthesia.io/embeds/videos/d80811f2-93e9-403a-9017-cc5b83bb2817";
-    iframe.title = "ARLO OS product walkthrough";
+    iframe.className = "youtube-player";
+    iframe.src = "https://www.youtube-nocookie.com/embed/wGCRAupDEvA?autoplay=1&start=2&playsinline=1&rel=0";
+    iframe.title = "ARLO OS 🚀 | A Smarter Windows Desktop Powered by AI";
     iframe.loading = "eager";
-    iframe.allow = "encrypted-media; screen-wake-lock";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
     iframe.allowFullscreen = true;
     videoViewport.replaceChildren(iframe);
   });
