@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import Script from "next/script";
 import "../styles.css";
 import "../showcase.css";
 
@@ -52,8 +53,8 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
-        <script src="/site/script.js" defer />
-        <script src="/site/showcase.js" defer />
+        <Script src="/site/script.js" strategy="afterInteractive" />
+        <Script src="/site/showcase.js" strategy="afterInteractive" />
       </body>
     </html>
   );

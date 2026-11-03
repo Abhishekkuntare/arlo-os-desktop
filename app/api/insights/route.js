@@ -173,7 +173,25 @@ export async function GET(request) {
       const count = parseCount(row.UserCount, "funnel count");
       funnelCounts.set(metric, (funnelCounts.get(metric) || 0) + count);
     }
-    const pageViews = funnelCounts.get("pageview") || 0;
+    const metricCount = (...metrics) => {
+      for (const metric of metrics) {
+        if (funnelCounts.has(metric)) return funnelCounts.get(metric);
+      }
+      return 0;
+    };
+    const pageViews = metricCount("pageview");
+    const installAttempts = metricCount("installattempt", "installattempts");
+    const funnelSuccessfulInstalls = metricCount(
+      "installsuccess",
+      "successfulinstall",
+      "successfulinstalls"
+    );
+    const firstTimeLaunches = metricCount(
+      "firsttimelaunch",
+      "firsttimelaunchesfromstore",
+      "firsttimelaunchfromstore",
+      "firsttimeuser"
+    );
 
     return Response.json(
       {
@@ -181,6 +199,9 @@ export async function GET(request) {
         otherDownloads,
         totalDownloads: storeInstalls + otherDownloads,
         pageViews,
+        installAttempts,
+        funnelSuccessfulInstalls,
+        firstTimeLaunches,
         conversionRate:
           pageViews > 0 ? (storeInstalls / pageViews) * 100 : 0,
         markets,

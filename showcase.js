@@ -11,7 +11,10 @@
   const galleryPosition = document.getElementById("galleryPosition");
   const galleryPages = document.getElementById("galleryPages");
   const galleryFilters = document.getElementById("galleryFilters");
-  const mediaVersion = document.querySelector('meta[name="arlo-media-version"]')?.content;
+  const assetManifestElement = document.getElementById("arlo-asset-manifest");
+  const assetManifest = assetManifestElement
+    ? JSON.parse(assetManifestElement.textContent)
+    : null;
 
   const lightbox = document.getElementById("galleryLightbox");
   const image = document.getElementById("lightboxImage");
@@ -22,10 +25,19 @@
   const next = document.getElementById("lightboxNext");
   const eyebrow = document.getElementById("lightboxEyebrow");
 
-  const optimizedAssetUrl = (file, width) => {
-    const basename = file.replace(/\.[^.]+$/, "");
-    const version = mediaVersion ? `?v=${mediaVersion}` : "";
-    return `/media/assets/${encodeURIComponent(`${basename}-${width}.webp`)}${version}`;
+  const assetUrls = file => {
+    const variants = assetManifest?.[`assets/${file}`];
+    if (variants?.length) {
+      return {
+        src: variants.at(-1).url,
+        srcSet: variants.map(variant => `${variant.url} ${variant.width}w`).join(", ")
+      };
+    }
+
+    return {
+      src: `/assets/${encodeURIComponent(file)}`,
+      srcSet: ""
+    };
   };
 
   const gallery = [
@@ -80,10 +92,7 @@
     ["setting-Day Progress.png", "Day Progress", "See how your day is unfolding at a glance.", "Productivity"],
     ["setting-Health.png", "Health Settings", "Explore wellbeing and health-related preferences.", "Productivity"]
   ].map(([file, heading, description, category]) => ({
-    src: optimizedAssetUrl(file, 1600),
-    srcSet: [480, 960, 1600]
-      .map(width => `${optimizedAssetUrl(file, width)} ${width}w`)
-      .join(", "),
+    ...assetUrls(file),
     heading,
     description,
     category
@@ -308,6 +317,46 @@
     lightbox.setAttribute("aria-hidden", "true");
     document.body.classList.remove("lightbox-open");
   };
+
+  let swipeStart = null;
+  const finishSwipe = (endX, endY) => {
+    if (!swipeStart) return;
+    const deltaX = endX - swipeStart.x;
+    const deltaY = endY - swipeStart.y;
+    swipeStart = null;
+    if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+    openGallery(index + (deltaX < 0 ? 1 : -1));
+  };
+  if ("PointerEvent" in window) {
+    image?.addEventListener("pointerdown", event => {
+      if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
+      swipeStart = { pointerId: event.pointerId, x: event.clientX, y: event.clientY };
+      image.setPointerCapture(event.pointerId);
+    });
+    image?.addEventListener("pointerup", event => {
+      if (!swipeStart || event.pointerId !== swipeStart.pointerId) return;
+      finishSwipe(event.clientX, event.clientY);
+    });
+    image?.addEventListener("pointercancel", () => {
+      swipeStart = null;
+    });
+  } else {
+    image?.addEventListener("touchstart", event => {
+      if (event.touches.length !== 1) {
+        swipeStart = null;
+        return;
+      }
+      const touch = event.touches[0];
+      swipeStart = { x: touch.clientX, y: touch.clientY };
+    }, { passive: true });
+    image?.addEventListener("touchend", event => {
+      const touch = event.changedTouches[0];
+      if (touch) finishSwipe(touch.clientX, touch.clientY);
+    });
+    image?.addEventListener("touchcancel", () => {
+      swipeStart = null;
+    });
+  }
 
   galleryTrack?.addEventListener("click", event => {
     const card = event.target.closest(".system-shot");

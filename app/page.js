@@ -5,6 +5,9 @@ const sourcePath = path.join(process.cwd(), "index.html");
 const source = readFileSync(sourcePath, "utf8");
 const mediaManifestPath = path.join(process.cwd(), "public", "media-manifest.json");
 const mediaManifest = JSON.parse(readFileSync(mediaManifestPath, "utf8"));
+const assetManifest = Object.fromEntries(
+  Object.entries(mediaManifest.images).filter(([key]) => key.startsWith("assets/"))
+);
 const bodyMatch = source.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i);
 
 if (!bodyMatch) {
@@ -45,6 +48,13 @@ export default function HomePage() {
           dangerouslySetInnerHTML={{ __html: structuredDataMatch[1] }}
         />
       )}
+      <script
+        id="arlo-asset-manifest"
+        type="application/json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(assetManifest).replace(/</g, "\\u003c")
+        }}
+      />
       <div dangerouslySetInnerHTML={{ __html: siteMarkup }} />
     </>
   );

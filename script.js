@@ -337,7 +337,9 @@
           } else {
             setInsightsStatus("SNAPSHOT · SHARED FIGURES", "snapshot");
           }
-          if (data.error) console.error("ARLO OS analytics:", data.error);
+          if (data.error && response.status !== 503) {
+            console.warn("ARLO OS analytics:", data.error);
+          }
           return;
         }
 
@@ -346,7 +348,10 @@
           data.totalDownloads,
           data.pageViews,
           data.conversionRate,
-          data.otherDownloads
+          data.otherDownloads,
+          data.installAttempts,
+          data.funnelSuccessfulInstalls,
+          data.firstTimeLaunches
         ].every(value => Number.isFinite(value) && value >= 0);
 
         if (!validCounts || !Array.isArray(data.markets)) {
@@ -357,12 +362,33 @@
           ["insight-download-total", data.totalDownloads],
           ["insight-store-installs", data.storeInstalls],
           ["insight-page-views", data.pageViews],
-          ["insight-conversion", data.conversionRate]
+          ["insight-conversion", data.conversionRate],
+          ["insight-funnel-page-views", data.pageViews],
+          ["insight-install-attempts", data.installAttempts],
+          ["insight-funnel-installs", data.funnelSuccessfulInstalls],
+          ["insight-first-launches", data.firstTimeLaunches]
         ];
 
         updates.forEach(([id, value]) => {
           const counter = document.getElementById(id);
           if (counter) animateCounterTo(counter, value);
+        });
+
+        const funnelTotal = data.pageViews;
+        const funnelValues = [
+          data.pageViews,
+          data.installAttempts,
+          data.funnelSuccessfulInstalls,
+          data.firstTimeLaunches
+        ];
+        document.querySelectorAll(".insights-funnel-step").forEach((step, index) => {
+          const fill = step.querySelector("i");
+          if (fill) {
+            fill.style.setProperty(
+              "--funnel-value",
+              `${funnelTotal > 0 ? Math.min((funnelValues[index] / funnelTotal) * 100, 100) : 0}%`
+            );
+          }
         });
 
         renderCountries(data.markets, data.otherDownloads);
