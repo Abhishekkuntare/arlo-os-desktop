@@ -271,12 +271,12 @@
 
     const iframe = document.createElement("iframe");
     iframe.className = "youtube-player";
-    iframe.src = "https://www.youtube-nocookie.com/embed/wGCRAupDEvA?autoplay=1&start=2&playsinline=1&rel=0";
-    iframe.title = "ARLO OS 🚀 | A Smarter Windows Desktop Powered by AI";
+    iframe.src = "https://www.youtube-nocookie.com/embed/wGCRAupDEvA?autoplay=1&playsinline=1&rel=0";
+    iframe.title = "ARLO OS | A Smarter Windows Desktop Powered by AI";
     iframe.loading = "eager";
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
     iframe.allowFullscreen = true;
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
     videoViewport.replaceChildren(iframe);
   });
 

@@ -112,7 +112,7 @@ body.lightbox-open { overflow:hidden; }
 @media (prefers-reduced-motion:reduce){.live-pulse{animation:none}.system-shot,.showcase-video-frame,.lightbox-panel{transform:none!important}.system-shot,.showcase-metrics{opacity:1!important}.youtube-launch img,.youtube-launch-play{transition:none}}
 
 /* ARLO OS identity and interaction polish */
-.nav{position:sticky;top:12px;width:min(1240px,calc(100% - 48px));height:76px;margin:12px auto 0;padding:0 20px;border:1px solid rgba(255,255,255,.09);border-radius:22px;background:rgba(11,13,21,.72);backdrop-filter:blur(24px) saturate(135%);box-shadow:0 16px 50px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.06);transition:background .3s ease,border-color .3s ease,box-shadow .3s ease}
+.nav{position:sticky;top:max(12px,env(safe-area-inset-top));width:min(1240px,calc(100% - 48px));height:76px;margin:12px auto 0;padding:0 20px;border:1px solid rgba(255,255,255,.09);border-radius:22px;background:rgba(11,13,21,.72);backdrop-filter:blur(24px) saturate(135%);box-shadow:0 16px 50px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.06);transition:background .3s ease,border-color .3s ease,box-shadow .3s ease}
 .nav .brand{gap:12px;flex:none}
 .brand-symbol{display:block;width:52px;height:40px;object-fit:contain;border-radius:12px;transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .35s ease}
 .brand:hover .brand-symbol{transform:scale(1.08) rotate(-4deg);filter:drop-shadow(0 0 12px rgba(123,138,255,.5))}
@@ -255,7 +255,7 @@ button:disabled{cursor:not-allowed;opacity:.55}
   .system-gallery-grid{padding-inline:9%}
 }
 @media(max-width:700px){
-  .nav{top:8px;width:calc(100% - 28px);height:66px;margin-top:8px;padding-inline:14px;border-radius:19px}
+  .nav{top:max(8px,env(safe-area-inset-top));width:calc(100% - 28px);height:66px;margin-top:8px;padding-inline:14px;border-radius:19px}
   .brand-symbol{width:46px;height:36px}
   .brand-wordmark{width:136px;height:41px}
   .arlo-mascot--hero{width:96px;height:96px;margin-bottom:24px}
@@ -501,5 +501,5 @@ button:disabled{cursor:not-allowed;opacity:.55}
 .cookie-footer-link:hover{color:#e0e5ff}
 @keyframes cookie-dialog-in{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes cookie-backdrop-in{from{opacity:0}to{opacity:1}}
-@media(max-width:560px){.cookie-banner{left:12px;bottom:12px;width:calc(100vw - 24px);grid-template-columns:30px minmax(0,1fr);gap:10px;padding:15px;border-radius:15px}.cookie-banner-mark{width:30px;height:30px;border-radius:10px}.cookie-banner-mark svg{width:18px;height:18px}.cookie-banner h2{font-size:15px}.cookie-banner-copy>p:not(.cookie-storage-note){font-size:9px}.cookie-banner-actions{gap:6px;margin-top:12px}.cookie-button{min-height:34px;padding:0 9px;font-size:8px}.cookie-preferences{width:calc(100vw - 20px);max-height:calc(100dvh - 20px);border-radius:17px}.cookie-preferences-header{padding:16px}.cookie-preferences-header h2{font-size:17px}.cookie-preferences-body{max-height:calc(100dvh - 175px);padding:16px}.cookie-preferences-footer{gap:6px;padding:12px}.cookie-preferences-footer .cookie-button{flex:1;justify-content:center}}
+@media(max-width:560px){.cookie-banner{left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));width:auto;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:15px;border-radius:15px}.cookie-banner-mark{width:30px;height:30px;border-radius:10px}.cookie-banner-mark svg{width:18px;height:18px}.cookie-banner h2{font-size:15px}.cookie-banner-copy>p:not(.cookie-storage-note){font-size:9px}.cookie-banner-actions{gap:6px;margin-top:12px}.cookie-button{min-height:34px;padding:0 9px;font-size:8px}.cookie-preferences{width:calc(100vw - 20px);max-height:calc(100dvh - 20px);border-radius:17px}.cookie-preferences-header{padding:16px}.cookie-preferences-header h2{font-size:17px}.cookie-preferences-body{max-height:calc(100dvh - 175px);padding:16px}.cookie-preferences-footer{gap:6px;padding:12px}.cookie-preferences-footer .cookie-button{flex:1;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.cookie-banner,.cookie-button,.cookie-close,.cookie-toggle>span,.cookie-toggle>span::after,.cookie-reject,.cookie-footer-link{transition:none}.cookie-banner.is-visible{transform:none}.cookie-preferences[open],.cookie-preferences::backdrop{animation:none}.cookie-button:hover,.cookie-close:hover{transform:none}}

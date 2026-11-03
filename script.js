@@ -717,21 +717,16 @@
         }
       });
 
-    const compactMotion = window.matchMedia("(max-width: 700px)").matches;
-    const heroRise = compactMotion ? 42 : 72;
-
 
     hero
 
       .from(
-        ".arlo-mascot--hero",
+        ".hero-brand-lockup",
         {
-          y: 16,
-          scale: .88,
+          y: 18,
           opacity: 0,
-          duration: .75
-        },
-        0
+          duration: .85
+        }
       )
 
       .from(
@@ -746,10 +741,10 @@
       .from(
         ".title-line",
         {
-          y: heroRise,
+          y: 80,
           opacity: 0,
-          duration: compactMotion ? .8 : 1,
-          stagger: .12
+          duration: 1.1,
+          stagger: .13
         },
         "-=.2"
       )
@@ -787,10 +782,10 @@
       .from(
         ".desktop-stage",
         {
-          y: compactMotion ? 44 : 72,
+          y: 80,
           opacity: 0,
-          scale: compactMotion ? .98 : .95,
-          duration: compactMotion ? .9 : 1.1,
+          scale: .94,
+          duration: 1.2,
           ease:
             "power3.out"
         },
@@ -824,6 +819,18 @@
           "sine.inOut"
       }
     );
+
+    gsap.to(
+      ".hero-brand-lockup > img",
+      {
+        y: -5,
+        duration: 3.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      }
+    );
+
 
     gsap.to(
       ".floating-pill",
@@ -918,35 +925,41 @@
       "undefined"
     ) {
 
-      const revealTargets = gsap.utils.toArray(".reveal");
-      const revealDistance = compactMotion ? 22 : 34;
+      document
+        .querySelectorAll(".reveal")
+        .forEach(element => {
 
-      window.ScrollTrigger.batch(revealTargets, {
-        start: "top 88%",
-        once: true,
-        interval: .12,
-        batchMax: compactMotion ? 2 : 4,
-        onEnter: elements => {
           gsap.fromTo(
-            elements,
+            element,
             {
-              autoAlpha: 0,
-              y: revealDistance,
-              scale: .985
+              opacity: 0,
+              y: 45
             },
             {
-              autoAlpha: 1,
+              opacity: 1,
               y: 0,
-              scale: 1,
-              duration: compactMotion ? .62 : .78,
-              stagger: compactMotion ? .06 : .09,
-              ease: "power3.out",
-              overwrite: "auto",
-              clearProps: "transform,opacity,visibility"
+              duration: .9,
+              ease:
+                "power3.out",
+              clearProps: "transform",
+
+              scrollTrigger: {
+
+                trigger:
+                  element,
+
+                start:
+                  "top 84%",
+
+                once:
+                  true
+
+              }
+
             }
           );
-        }
-      });
+
+        });
 
 
       /* Experience cards use their individual .reveal animations above. */
@@ -966,42 +979,79 @@
          PARALLAX
       ==================================================== */
 
-      const parallaxMedia = gsap.matchMedia();
-      parallaxMedia.add("(min-width: 701px)", () => {
-        gsap.to(".window-card", {
+      gsap.to(
+        ".window-card",
+        {
           y: -45,
-          scrollTrigger: {
-            trigger: ".desktop-stage",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2
-          }
-        });
 
-        gsap.to(".stage-glow", {
-          y: -70,
           scrollTrigger: {
-            trigger: ".desktop-stage",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.5
-          }
-        });
 
-        const developerGlow = document.querySelector(".developer-glow");
-        const developerSection = document.querySelector(".developer-section");
-        if (developerGlow && developerSection) {
-          gsap.to(developerGlow, {
-            y: -100,
-            scrollTrigger: {
-              trigger: developerSection,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.5
-            }
-          });
+            trigger:
+              ".desktop-stage",
+
+            start:
+              "top bottom",
+
+            end:
+              "bottom top",
+
+            scrub:
+              1.2
+
+          }
+
         }
-      });
+      );
+
+
+      gsap.to(
+        ".stage-glow",
+        {
+          y: -70,
+
+          scrollTrigger: {
+
+            trigger:
+              ".desktop-stage",
+
+            start:
+              "top bottom",
+
+            end:
+              "bottom top",
+
+            scrub:
+              1.5
+
+          }
+
+        }
+      );
+
+
+      gsap.to(
+        ".developer-glow",
+        {
+          y: -100,
+
+          scrollTrigger: {
+
+            trigger:
+              ".developer-section",
+
+            start:
+              "top bottom",
+
+            end:
+              "bottom top",
+
+            scrub:
+              1.5
+
+          }
+
+        }
+      );
 
     }
 
