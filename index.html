@@ -94,27 +94,6 @@
 
   <a class="skip-link" href="#main-content">Skip to content</a>
 
-  <svg class="arlo-mascot-defs" aria-hidden="true" focusable="false">
-    <defs>
-      <linearGradient id="arlo-mascot-shell-gradient" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#83dcff"/>
-        <stop offset=".48" stop-color="#1599f5"/>
-        <stop offset="1" stop-color="#0872cf"/>
-      </linearGradient>
-      <linearGradient id="arlo-mascot-face" x1=".2" y1="0" x2=".8" y2="1">
-        <stop offset="0" stop-color="#c5edff"/>
-        <stop offset=".55" stop-color="#7dc7ff"/>
-        <stop offset="1" stop-color="#4f9fe9"/>
-      </linearGradient>
-      <symbol id="arlo-mascot-shell" viewBox="0 0 120 120">
-        <rect x="12" y="11" width="96" height="98" rx="26" fill="url(#arlo-mascot-shell-gradient)" stroke="#70d2ff" stroke-width="2"/>
-        <rect x="15" y="14" width="90" height="92" rx="23" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.5"/>
-        <rect x="20" y="19" width="80" height="82" rx="20" fill="url(#arlo-mascot-face)" stroke="#d7f3ff" stroke-opacity=".72" stroke-width="1.5"/>
-        <path d="M31 25 Q60 17 89 25" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="2" stroke-linecap="round"/>
-      </symbol>
-    </defs>
-  </svg>
-
   <!-- =====================================================
        BACKGROUND
   ====================================================== -->
@@ -278,21 +257,40 @@
       aria-label="Say hello to the ARLO mascot"
     >
       <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-        <use href="#arlo-mascot-shell"/>
+        <defs>
+          <linearGradient id="arlo-mascot-shell-gradient-hero" x1="0" y1="0" x2="1" y2="1">
+            <stop class="arlo-mascot-shell-start" offset="0"/>
+            <stop class="arlo-mascot-shell-quarter" offset=".25"/>
+            <stop class="arlo-mascot-shell-middle" offset=".5"/>
+            <stop class="arlo-mascot-shell-three-quarter" offset=".75"/>
+            <stop class="arlo-mascot-shell-end" offset="1"/>
+          </linearGradient>
+          <linearGradient id="arlo-mascot-face-gradient-hero" x1=".2" y1="0" x2=".8" y2="1">
+            <stop class="arlo-mascot-face-start" offset="0"/>
+            <stop class="arlo-mascot-face-quarter" offset=".25"/>
+            <stop class="arlo-mascot-face-middle" offset=".5"/>
+            <stop class="arlo-mascot-face-three-quarter" offset=".75"/>
+            <stop class="arlo-mascot-face-end" offset="1"/>
+          </linearGradient>
+        </defs>
+        <rect x="12" y="11" width="96" height="98" rx="26" fill="url(#arlo-mascot-shell-gradient-hero)" class="arlo-mascot-outline" stroke-width="2"/>
+        <rect x="15" y="14" width="90" height="92" rx="23" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.5"/>
+        <rect x="20" y="19" width="80" height="82" rx="20" fill="url(#arlo-mascot-face-gradient-hero)" class="arlo-mascot-face-outline" stroke-opacity=".72" stroke-width="1.5"/>
+       
         <g class="arlo-mascot-eyes">
-          <rect x="42" y="43" width="8" height="18" rx="4" fill="#17476d"/>
-          <ellipse cx="44" cy="47" rx="1.2" ry="1.6" fill="#a9e3ff" opacity=".72"/>
-          <rect x="70" y="43" width="8" height="18" rx="4" fill="#17476d"/>
-          <ellipse cx="72" cy="47" rx="1.2" ry="1.6" fill="#a9e3ff" opacity=".72"/>
+          <rect x="42" y="43" width="8" height="18" rx="4" class="arlo-mascot-ink"/>
+          <ellipse cx="44" cy="47" rx="1.2" ry="1.6" class="arlo-mascot-eye-highlight" opacity=".72"/>
+          <rect x="70" y="43" width="8" height="18" rx="4" class="arlo-mascot-ink"/>
+          <ellipse cx="72" cy="47" rx="1.2" ry="1.6" class="arlo-mascot-eye-highlight" opacity=".72"/>
         </g>
         <g class="arlo-mascot-blush">
           <ellipse cx="35" cy="68" rx="7" ry="4" fill="#ff83a6"/>
           <ellipse cx="85" cy="68" rx="7" ry="4" fill="#ff83a6"/>
         </g>
-        <path class="arlo-mascot-smile" d="M40 73 Q60 92 80 73" fill="none" stroke="#17476d" stroke-width="4.5" stroke-linecap="round"/>
+        <path class="arlo-mascot-smile arlo-mascot-ink" d="M40 73 Q60 92 80 73" fill="none" stroke-width="4.5" stroke-linecap="round"/>
         <g class="arlo-mascot-surprise">
-          <ellipse cx="60" cy="75" rx="6" ry="8" fill="#173c60"/>
-          <ellipse cx="60" cy="79" rx="2.5" ry="2" fill="#ff8ba9"/>
+          <ellipse cx="60" cy="75" rx="6" ry="8" class="arlo-mascot-ink"/>
+          <ellipse cx="60" cy="79" rx="2.5" ry="2" class="arlo-mascot-tongue"/>
         </g>
       </svg>
     </button>
@@ -2210,21 +2208,40 @@
 
         <span class="arlo-mascot arlo-mascot--footer" data-arlo-mascot aria-hidden="true">
           <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-            <use href="#arlo-mascot-shell"/>
+            <defs>
+              <linearGradient id="arlo-mascot-shell-gradient-footer" x1="0" y1="0" x2="1" y2="1">
+                <stop class="arlo-mascot-shell-start" offset="0"/>
+                <stop class="arlo-mascot-shell-quarter" offset=".25"/>
+                <stop class="arlo-mascot-shell-middle" offset=".5"/>
+                <stop class="arlo-mascot-shell-three-quarter" offset=".75"/>
+                <stop class="arlo-mascot-shell-end" offset="1"/>
+              </linearGradient>
+              <linearGradient id="arlo-mascot-face-gradient-footer" x1=".2" y1="0" x2=".8" y2="1">
+                <stop class="arlo-mascot-face-start" offset="0"/>
+                <stop class="arlo-mascot-face-quarter" offset=".25"/>
+                <stop class="arlo-mascot-face-middle" offset=".5"/>
+                <stop class="arlo-mascot-face-three-quarter" offset=".75"/>
+                <stop class="arlo-mascot-face-end" offset="1"/>
+              </linearGradient>
+            </defs>
+            <rect x="12" y="11" width="96" height="98" rx="26" fill="url(#arlo-mascot-shell-gradient-footer)" class="arlo-mascot-outline" stroke-width="2"/>
+            <rect x="15" y="14" width="90" height="92" rx="23" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.5"/>
+            <rect x="20" y="19" width="80" height="82" rx="20" fill="url(#arlo-mascot-face-gradient-footer)" class="arlo-mascot-face-outline" stroke-opacity=".72" stroke-width="1.5"/>
+           
             <g class="arlo-mascot-eyes">
-              <rect x="42" y="43" width="8" height="18" rx="4" fill="#17476d"/>
-              <ellipse cx="44" cy="47" rx="1.2" ry="1.6" fill="#a9e3ff" opacity=".72"/>
-              <rect x="70" y="43" width="8" height="18" rx="4" fill="#17476d"/>
-              <ellipse cx="72" cy="47" rx="1.2" ry="1.6" fill="#a9e3ff" opacity=".72"/>
+              <rect x="42" y="43" width="8" height="18" rx="4" class="arlo-mascot-ink"/>
+              <ellipse cx="44" cy="47" rx="1.2" ry="1.6" class="arlo-mascot-eye-highlight" opacity=".72"/>
+              <rect x="70" y="43" width="8" height="18" rx="4" class="arlo-mascot-ink"/>
+              <ellipse cx="72" cy="47" rx="1.2" ry="1.6" class="arlo-mascot-eye-highlight" opacity=".72"/>
             </g>
             <g class="arlo-mascot-blush">
               <ellipse cx="35" cy="68" rx="7" ry="4" fill="#ff83a6"/>
               <ellipse cx="85" cy="68" rx="7" ry="4" fill="#ff83a6"/>
             </g>
-            <path class="arlo-mascot-smile" d="M40 73 Q60 92 80 73" fill="none" stroke="#17476d" stroke-width="4.5" stroke-linecap="round"/>
+            <path class="arlo-mascot-smile arlo-mascot-ink" d="M40 73 Q60 92 80 73" fill="none" stroke-width="4.5" stroke-linecap="round"/>
             <g class="arlo-mascot-surprise">
-              <ellipse cx="60" cy="75" rx="6" ry="8" fill="#173c60"/>
-              <ellipse cx="60" cy="79" rx="2.5" ry="2" fill="#ff8ba9"/>
+              <ellipse cx="60" cy="75" rx="6" ry="8" class="arlo-mascot-ink"/>
+              <ellipse cx="60" cy="79" rx="2.5" ry="2" class="arlo-mascot-tongue"/>
             </g>
           </svg>
         </span>

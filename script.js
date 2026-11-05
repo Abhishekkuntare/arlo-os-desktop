@@ -1409,6 +1409,309 @@
   const mascots = Array.from(document.querySelectorAll("[data-arlo-mascot]"));
   if (!mascots.length) return;
 
+  const namedColors = [
+    ["Red", "#e53935"], ["Crimson", "#dc143c"], ["Scarlet", "#ff2400"],
+    ["Maroon", "#800000"], ["Burgundy", "#800020"], ["Ruby", "#9b111e"],
+    ["Cherry", "#de3163"], ["Rose", "#f33a6a"], ["Pink", "#ff69b4"],
+    ["Hot Pink", "#ff1493"], ["Baby Pink", "#f4c2c2"], ["Blush Pink", "#de5d83"],
+    ["Dusty Rose", "#c08081"], ["Coral Pink", "#f88379"], ["Salmon Pink", "#ff91a4"],
+    ["Peach", "#ffcba4"], ["Apricot", "#fbceb1"], ["Orange", "#ff851b"],
+    ["Burnt Orange", "#cc5500"], ["Tangerine", "#f28500"], ["Amber", "#ffbf00"],
+    ["Pumpkin", "#ff7518"], ["Rust", "#b7410e"], ["Terracotta", "#e2725b"],
+    ["Copper", "#b87333"], ["Bronze", "#cd7f32"], ["Gold", "#d4af37"],
+    ["Rose Gold", "#b76e79"], ["Yellow", "#ffd60a"], ["Lemon Yellow", "#fff44f"],
+    ["Mustard Yellow", "#d4a017"], ["Golden Yellow", "#ffdf00"], ["Saffron", "#f4c430"],
+    ["Honey", "#e6a817"], ["Cream", "#fffdd0"], ["Ivory", "#fffff0"],
+    ["Beige", "#d8c3a5"], ["Champagne", "#f7e7ce"], ["Tan", "#d2b48c"],
+    ["Khaki", "#c3b091"], ["Camel", "#c19a6b"], ["Brown", "#8b5a2b"],
+    ["Chocolate Brown", "#7b3f00"], ["Coffee Brown", "#6f4e37"], ["Espresso", "#3c2415"],
+    ["Mocha", "#967969"], ["Caramel", "#c68e17"], ["Chestnut", "#954535"],
+    ["Walnut", "#773f1a"], ["Mahogany", "#4a1c1c"], ["Umber", "#635147"],
+    ["Taupe", "#8b8589"], ["Sand", "#c2b280"], ["Ochre", "#cc7722"],
+    ["Olive", "#808000"], ["Army Green", "#4b5320"], ["Forest Green", "#228b22"],
+    ["Emerald Green", "#50c878"], ["Jade Green", "#00a86b"], ["Mint Green", "#98ffcc"],
+    ["Sage Green", "#9caf88"], ["Seafoam Green", "#93e9be"], ["Lime Green", "#7cfc00"],
+    ["Neon Green", "#39ff14"], ["Apple Green", "#8db600"], ["Grass Green", "#4caf50"],
+    ["Moss Green", "#8a9a5b"], ["Fern Green", "#4f7942"], ["Hunter Green", "#355e3b"],
+    ["Pistachio Green", "#93c572"], ["Teal", "#008c8c"], ["Turquoise", "#40e0d0"],
+    ["Aqua", "#00ffff"], ["Cyan", "#00bcd4"], ["Baby Blue", "#89cff0"],
+    ["Sky Blue", "#87ceeb"], ["Powder Blue", "#b0e0e6"], ["Ice Blue", "#d7f3ff"],
+    ["Pastel Blue", "#a7c7e7"], ["Royal Blue", "#4169e1"], ["Navy Blue", "#000080"],
+    ["Midnight Blue", "#191970"], ["Cobalt Blue", "#0047ab"], ["Sapphire Blue", "#0f52ba"],
+    ["Azure", "#007fff"], ["Cerulean", "#2a52be"], ["Denim Blue", "#1560bd"],
+    ["Steel Blue", "#4682b4"], ["Ocean Blue", "#006994"], ["Electric Blue", "#7df9ff"],
+    ["Peacock Blue", "#005f69"], ["Periwinkle", "#8e9aee"], ["Indigo", "#4b0082"],
+    ["Violet", "#8f00ff"], ["Purple", "#8000a8"], ["Lavender", "#b57edc"],
+    ["Lilac", "#c8a2c8"], ["Mauve", "#b784a7"], ["Plum", "#8e4585"],
+    ["Orchid", "#da70d6"], ["Amethyst", "#9966cc"], ["Magenta", "#ff00ff"],
+    ["Fuchsia", "#c154c1"], ["Grape", "#6f2da8"], ["Eggplant", "#614051"],
+    ["Wine", "#722f37"], ["Mulberry", "#c54b8c"], ["Wisteria", "#c9a0dc"],
+    ["Heather", "#9b7cb9"], ["Grey", "#808080"], ["Light Grey", "#d3d3d3"],
+    ["Silver", "#c0c0c0"], ["Charcoal Grey", "#36454f"], ["Slate Grey", "#708090"],
+    ["Ash Grey", "#b2beb5"], ["Gunmetal Grey", "#2a3439"], ["Smoke Grey", "#738276"],
+    ["Graphite", "#41424c"], ["Pewter", "#899499"], ["Stone Grey", "#928e85"],
+    ["White", "#ffffff"], ["Snow White", "#fffafa"], ["Pure White", "#ffffff"],
+    ["Off White", "#f5f5ee"], ["Antique White", "#faebd7"], ["Alabaster", "#edeae0"],
+    ["Pearl White", "#f0ead6"], ["Black", "#111111"], ["Jet Black", "#0a0a0a"],
+    ["Matte Black", "#242424"], ["Onyx", "#353839"], ["Obsidian", "#0b1215"],
+    ["Ebony", "#28211f"], ["Midnight Black", "#101116"]
+  ];
+  const hexToHsl = hex => {
+    const values = hex.match(/[a-f\d]{2}/gi).map(value => parseInt(value, 16) / 255);
+    const [red, green, blue] = values;
+    const max = Math.max(red, green, blue);
+    const min = Math.min(red, green, blue);
+    const delta = max - min;
+    let hue = 0;
+    const lightness = (max + min) / 2;
+    let saturation = 0;
+    if (delta) {
+      saturation = delta / (1 - Math.abs(2 * lightness - 1));
+      switch (max) {
+        case red: hue = ((green - blue) / delta) % 6; break;
+        case green: hue = (blue - red) / delta + 2; break;
+        default: hue = (red - green) / delta + 4;
+      }
+      hue = (hue * 60 + 360) % 360;
+    }
+    return [hue, saturation, lightness];
+  };
+  const hslToHex = (hue, saturation, lightness) => {
+    const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
+    const segment = hue / 60;
+    const secondary = chroma * (1 - Math.abs(segment % 2 - 1));
+    const [red, green, blue] = segment < 1 ? [chroma, secondary, 0]
+      : segment < 2 ? [secondary, chroma, 0]
+        : segment < 3 ? [0, chroma, secondary]
+          : segment < 4 ? [0, secondary, chroma]
+            : segment < 5 ? [secondary, 0, chroma] : [chroma, 0, secondary];
+    const offset = lightness - chroma / 2;
+    return `#${[red, green, blue].map(value =>
+      Math.round((value + offset) * 255).toString(16).padStart(2, "0")
+    ).join("")}`;
+  };
+  const makePalette = (name, hex, finish = "solid") => {
+    const [hue, saturation, lightness] = hexToHsl(hex);
+    const vivid = finish === "neon" || finish === "fluorescent";
+    const pastel = finish === "pastel";
+    const sat = vivid ? Math.max(saturation, .92) : pastel ? Math.min(saturation, .52) : saturation;
+    const baseLight = vivid ? .58 : pastel ? .78 : Math.min(.72, Math.max(.32, lightness));
+    const shade = (lightOffset, saturationScale = 1) =>
+      hslToHex(hue, Math.min(1, sat * saturationScale), Math.min(.96, Math.max(.12, baseLight + lightOffset)));
+    const shell = [.24, .1, 0, -.1, -.24].map((offset, index) =>
+      shade(offset, finish === "metallic" ? [.15, .55, .35, .68, .2][index] : 1)
+    );
+    const face = [.27, .19, .12, .05, -.02].map(offset => shade(offset, .68));
+    if (finish === "rainbow" || finish === "multicolor" || finish === "iridescent" || finish === "holographic") {
+      const hues = finish === "rainbow" || finish === "multicolor"
+        ? [0, 48, 125, 190, 265]
+        : [300, 190, 48, 265, 150];
+      shell.forEach((_color, index) => {
+        shell[index] = hslToHex(hues[index], .84, [.62, .55, .56, .5, .52][index]);
+        face[index] = hslToHex(hues[index], .48, [.91, .86, .84, .82, .88][index]);
+      });
+    } else if (finish === "metallic") {
+      shell[0] = "#ffffff";
+      shell[2] = hex;
+      shell[4] = "#34343a";
+    }
+    const rgb = hex.match(/[a-f\d]{2}/gi).map(value => parseInt(value, 16));
+    const darkInk = "#17131b";
+    return {
+      name: name.toLowerCase().replace(/\s+/g, "-"),
+      finish,
+      colors: {
+        "shell-start": shell[0], "shell-quarter": shell[1], "shell-middle": shell[2],
+        "shell-three-quarter": shell[3], "shell-end": shell[4],
+        "face-start": face[0], "face-quarter": face[1], "face-middle": face[2],
+        "face-three-quarter": face[3], "face-end": face[4],
+        "shell-outline": shade(.16), "face-outline": "#ffffff",
+        "feature-ink": darkInk, "eye-highlight": "#ffffff", "tongue": "#ff8ba9"
+      },
+      glow: `rgba(${rgb.join(",")},.22)`,
+      hoverGlow: `rgba(${rgb.join(",")},.4)`
+    };
+  };
+  const blendHex = (first, second, amount) => {
+    const firstRgb = first.match(/[a-f\d]{2}/gi).map(value => parseInt(value, 16));
+    const secondRgb = second.match(/[a-f\d]{2}/gi).map(value => parseInt(value, 16));
+    return `#${firstRgb.map((value, index) =>
+      Math.round(value + (secondRgb[index] - value) * amount).toString(16).padStart(2, "0")
+    ).join("")}`;
+  };
+  const makeGradientPalette = (name, swatches) => {
+    const shell = [
+      swatches[0], blendHex(swatches[0], swatches[1], .5), swatches[1],
+      blendHex(swatches[1], swatches[2], .5), swatches[2]
+    ];
+    const face = shell.map((color, index) => blendHex(color, "#ffffff", [.78, .68, .58, .48, .4][index]));
+    const [red, green, blue] = swatches[1].match(/[a-f\d]{2}/gi).map(value => parseInt(value, 16));
+    return {
+      name: name.toLowerCase().replace(/\s+/g, "-"),
+      finish: "solid",
+      colors: {
+        "shell-start": shell[0], "shell-quarter": shell[1], "shell-middle": shell[2],
+        "shell-three-quarter": shell[3], "shell-end": shell[4],
+        "face-start": face[0], "face-quarter": face[1], "face-middle": face[2],
+        "face-three-quarter": face[3], "face-end": face[4],
+        "shell-outline": blendHex(swatches[0], "#ffffff", .28), "face-outline": "#ffffff",
+        "feature-ink": "#17131b", "eye-highlight": "#ffffff", "tongue": "#ff8ba9"
+      },
+      glow: `rgba(${red},${green},${blue},.22)`,
+      hoverGlow: `rgba(${red},${green},${blue},.4)`
+    };
+  };
+  const gradientPalettes = [
+    ["Electric Aurora", "#36f1cd", "#32b8ff", "#9d4edd"],
+    ["Cosmic Galaxy", "#18134f", "#7138b5", "#f15bb5"],
+    ["Royal Sunset", "#542788", "#e84a5f", "#ffb347"],
+    ["Royal Luxury", "#541388", "#9d4edd", "#d4af37"],
+    ["Neon Dream", "#ff00a8", "#8a2be2", "#39ff14"],
+    ["Cyberpunk", "#ff2a6d", "#d500f9", "#05d9e8"],
+    ["Ocean Aurora", "#073b4c", "#06d6a0", "#48cae4"],
+    ["Sunset Glow", "#ff5e5b", "#ff9966", "#ffd166"],
+    ["Candy Fusion", "#ff70a6", "#ff9770", "#70d6ff"],
+    ["Mystic Flame", "#5a189a", "#e63946", "#ff9f1c"],
+    ["Arctic Fantasy", "#b8f2e6", "#70d6ff", "#7b61ff"],
+    ["Tropical Paradise", "#00c9a7", "#f9f871", "#ff6f91"],
+    ["Purple Haze", "#3c096c", "#9d4edd", "#e0aaff"],
+    ["Blue Raspberry", "#00b4d8", "#277da1", "#80ffdb"],
+    ["Cherry Blossom", "#ff8fab", "#ffc2d1", "#cdb4db"],
+    ["Golden Hour", "#b5651d", "#f4a261", "#ffd166"],
+    ["Midnight Aurora", "#101040", "#00c2a8", "#8a5cf6"],
+    ["Emerald Dream", "#064e3b", "#10b981", "#a3e635"],
+    ["Pink Galaxy", "#78004b", "#e73895", "#9b5de5"],
+    ["Fire and Ice", "#ff3b30", "#ff9f1c", "#48cae4"],
+    ["Royal Ocean", "#071952", "#086788", "#47b5ff"],
+    ["Lavender Sky", "#8e7dbe", "#c8b6ff", "#e7c6ff"],
+    ["Mango Splash", "#ff7b00", "#ffb703", "#ff5d8f"],
+    ["Mint Breeze", "#b7e4c7", "#52b788", "#168aad"],
+    ["Peach Paradise", "#ffb5a7", "#fcd5ce", "#f4a261"],
+    ["Deep Space", "#090a24", "#302b63", "#6f42c1"],
+    ["Violet Flame", "#4c1d95", "#9b5de5", "#ff5d8f"],
+    ["Coral Reef", "#ff6b6b", "#f9844a", "#00b4d8"],
+    ["Blue Lagoon", "#023e8a", "#00b4d8", "#90e0ef"],
+    ["Pink Champagne", "#b76e79", "#e8aeb7", "#f7e7ce"],
+    ["Aurora Borealis", "#00f5d4", "#00bbf9", "#9b5de5"],
+    ["Plum Royale", "#3c1642", "#7b2cbf", "#c77dff"],
+    ["Lemon Berry", "#f9c80e", "#f86624", "#c1126b"],
+    ["Sapphire Glow", "#082f8f", "#1768ac", "#72ddf7"],
+    ["Rose Gold", "#9e4f68", "#c47a83", "#f3c7b5"],
+    ["Inferno", "#6a040f", "#d00000", "#ffba08"],
+    ["Forest Magic", "#143d2b", "#386641", "#a7c957"],
+    ["Indigo Dream", "#240046", "#5a189a", "#7b9acc"],
+    ["Cotton Candy", "#ffafcc", "#cdb4db", "#a2d2ff"],
+    ["Electric Citrus", "#b7e000", "#f9c80e", "#ff5e00"],
+    ["Neon Ocean", "#00f5d4", "#00bbf9", "#005bea"],
+    ["Galaxy Purple", "#240046", "#7209b7", "#f15bb5"],
+    ["Desert Sunset", "#9c6644", "#d98c5f", "#f2cc8f"],
+    ["Blue Flame", "#023e8a", "#00b4d8", "#b8f2e6"],
+    ["Ruby Velvet", "#4a001f", "#9b111e", "#e63950"],
+    ["Opal Glow", "#8ecae6", "#cdb4db", "#b7e4c7"],
+    ["Holographic", "#ff70a6", "#70d6ff", "#c77dff"],
+    ["Peacock Jewel", "#005f73", "#0a9396", "#ca6702"],
+    ["Purple Gold", "#4a148c", "#8e44ad", "#d4af37"],
+    ["Red Velvet", "#3d001e", "#8b0035", "#d7263d"],
+    ["Nordic Blue", "#14213d", "#31587a", "#a8dadc"],
+    ["Mauve Magic", "#614051", "#a2678a", "#d8a7ca"],
+    ["Solar Flare", "#ff4800", "#ff9500", "#ffcc00"],
+    ["Blueberry Crush", "#241468", "#4f46e5", "#b8c0ff"],
+    ["Spring Meadow", "#386641", "#6a994e", "#c7f9cc"],
+    ["Pink Electric", "#ff00a8", "#f72585", "#7209b7"],
+    ["Glacier", "#caf0f8", "#90e0ef", "#0077b6"],
+    ["Amethyst Sky", "#5a189a", "#9d4edd", "#c8b6ff"],
+    ["Citrus Punch", "#aacc00", "#ffba08", "#f77f00"],
+    ["Deep Emerald", "#022c22", "#047857", "#34d399"],
+    ["Moonlight", "#30364f", "#748cab", "#dbe7f3"],
+    ["Cherry Pop", "#9d0208", "#e5383b", "#ff758f"],
+    ["Lavender Dream", "#7b2cbf", "#b185db", "#e0aaff"],
+    ["Ocean Sunset", "#005f73", "#ee6c4d", "#f4a261"],
+    ["Electric Lime", "#386641", "#80b918", "#d9ed92"],
+    ["Dark Matter", "#09090b", "#27272a", "#52525b"],
+    ["Pink Coral", "#ff5d8f", "#ff8fab", "#ffb4a2"],
+    ["Golden Galaxy", "#8c5e00", "#d4af37", "#f7e7a9"],
+    ["Teal Purple", "#007f86", "#3a0ca3", "#b5179e"],
+    ["Flamingo", "#ff4d6d", "#ff8fa3", "#ffcad4"],
+    ["Arctic Aurora", "#caf0f8", "#48cae4", "#80ffdb"],
+    ["Magma", "#370617", "#9d0208", "#ffba08"],
+    ["Jade Ocean", "#006466", "#0a9396", "#94d2bd"],
+    ["Royal Berry", "#3c096c", "#7b2cbf", "#e75480"],
+    ["Tangerine Dream", "#c2410c", "#f97316", "#facc15"],
+    ["Dreamscape", "#4361ee", "#b5179e", "#4cc9f0"],
+    ["Neon Jungle", "#14532d", "#39ff14", "#00f5d4"],
+    ["Obsidian Glow", "#09090b", "#27272a", "#7c3aed"],
+    ["Rose Quartz", "#b56576", "#e5989b", "#ffcdb2"],
+    ["Midnight Sapphire", "#050b2e", "#142a73", "#3267c8"],
+    ["Autumn Leaves", "#7f1d1d", "#c2410c", "#eab308"],
+    ["Mint Chocolate", "#064e3b", "#2d6a4f", "#9c6644"],
+    ["Ruby Sapphire", "#8f001a", "#c9184a", "#1446a0"],
+    ["Solar Aurora", "#f72585", "#ffba08", "#4cc9f0"],
+    ["Blue Violet", "#14213d", "#4361ee", "#9d4edd"],
+    ["Peach Lavender", "#ffb5a7", "#e7c6ff", "#cdb4db"],
+    ["Emerald Gold", "#064e3b", "#10b981", "#d4af37"],
+    ["Crimson Purple", "#9d0208", "#c9184a", "#7209b7"],
+    ["Tropical Sunset", "#06d6a0", "#ff9f1c", "#ef476f"],
+    ["Ice Berry", "#caf0f8", "#72ddf7", "#9d4edd"],
+    ["Electric Royal", "#0037ff", "#7209b7", "#ff00a8"],
+    ["Mocha Cream", "#4e342e", "#967969", "#f3e5d0"],
+    ["Ocean Pearl", "#005f73", "#48cae4", "#f1faee"],
+    ["Velvet Night", "#171123", "#4a1942", "#943f71"],
+    ["Fluorescent Pop", "#ff00a8", "#39ff14", "#00bbf9"],
+    ["Sakura Glow", "#d63384", "#ff8fab", "#ffd6e0"],
+    ["Copper Sunset", "#7f3b08", "#b87333", "#ff9966"],
+    ["Blue Mint", "#0077b6", "#48cae4", "#80ed99"],
+    ["Purple Peach", "#7209b7", "#c77dff", "#ffb5a7"],
+    ["Starfire", "#6a040f", "#e63946", "#ffd166"],
+    ["Arctic Ocean", "#caf0f8", "#48cae4", "#0077b6"],
+    ["Galaxy Gold", "#3c096c", "#7b2cbf", "#d4af37"]
+  ].map(([name, ...swatches]) => makeGradientPalette(name, swatches));
+  const bluePalette = {
+    name: "blue",
+    finish: "solid",
+    colors: {
+      "shell-start": "#83dcff", "shell-quarter": "#4cb8ff", "shell-middle": "#1599f5",
+      "shell-three-quarter": "#0c88e7", "shell-end": "#0872cf",
+      "face-start": "#c5edff", "face-quarter": "#9ad9ff", "face-middle": "#7dc7ff",
+      "face-three-quarter": "#64b5f7", "face-end": "#4f9fe9",
+      "shell-outline": "#70d2ff", "face-outline": "#d7f3ff",
+      "feature-ink": "#17476d", "eye-highlight": "#a9e3ff", "tongue": "#ff8ba9"
+    },
+    glow: "rgba(34,139,255,.2)",
+    hoverGlow: "rgba(88,174,255,.34)"
+  };
+  const specialPalettes = [
+    ["Rainbow", "#ff5277", "rainbow"], ["Multicolor", "#9564ed", "multicolor"],
+    ["Pastel", "#a7c7e7", "pastel"], ["Neon", "#39ff14", "neon"],
+    ["Metallic", "#b8a36a", "metallic"], ["Fluorescent", "#39ff14", "fluorescent"],
+    ["Iridescent", "#8e9aee", "iridescent"],
+    ["Transparent", "#7dc7ff", "transparent"], ["Translucent", "#7dc7ff", "translucent"]
+  ].map(([name, hex, finish]) => makePalette(name, hex, finish));
+  const palettes = [
+    bluePalette,
+    ...namedColors.map(([name, hex]) => makePalette(name, hex)),
+    ...gradientPalettes,
+    ...specialPalettes
+  ];
+  const applyPalette = (mascot, palette) => {
+    Object.entries(palette.colors).forEach(([name, color]) => {
+      mascot.style.setProperty(`--arlo-${name}`, color);
+    });
+    mascot.style.setProperty("--arlo-mascot-glow", palette.glow);
+    mascot.style.setProperty("--arlo-mascot-hover-glow", palette.hoverGlow);
+    mascot.dataset.colorPalette = palette.name;
+    mascot.dataset.colorFinish = palette.finish;
+  };
+  let currentPalette = palettes[0];
+  mascots.forEach(mascot => applyPalette(mascot, currentPalette));
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.setInterval(() => {
+      const nextPalettes = palettes.filter(palette => palette !== currentPalette);
+      currentPalette = nextPalettes[Math.floor(Math.random() * nextPalettes.length)];
+      mascots.forEach(mascot => applyPalette(mascot, currentPalette));
+    }, 10000);
+  }
+
   let pointer = null;
   let gazeFrame = 0;
   const reactionTimers = new WeakMap();

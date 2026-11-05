@@ -123,9 +123,28 @@ body.lightbox-open { overflow:hidden; }
 .desktop-nav a:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.06);box-shadow:0 8px 24px rgba(0,0,0,.16)}
 .desktop-nav .nav-store{padding:10px 14px;border-color:rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(130,103,220,.09))}
 .desktop-nav .nav-github{padding:10px 14px}
-.arlo-mascot-defs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
 .arlo-mascot{position:relative;display:block;flex:0 0 auto;aspect-ratio:1;padding:0;border:0;border-radius:24%;background:transparent;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.arlo-mascot>svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 9px 22px rgba(34,139,255,.2));animation:arlo-mascot-float 5s ease-in-out infinite}
+.arlo-mascot>svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 9px 22px var(--arlo-mascot-glow,rgba(34,139,255,.2)));transition:filter 1.8s ease;animation:arlo-mascot-float 5s ease-in-out infinite}
+.arlo-mascot stop{transition:stop-color 1.8s ease}
+.arlo-mascot .arlo-mascot-shell-start{stop-color:var(--arlo-shell-start,#83dcff)}
+.arlo-mascot .arlo-mascot-shell-quarter{stop-color:var(--arlo-shell-quarter,#4cb8ff)}
+.arlo-mascot .arlo-mascot-shell-middle{stop-color:var(--arlo-shell-middle,#1599f5)}
+.arlo-mascot .arlo-mascot-shell-three-quarter{stop-color:var(--arlo-shell-three-quarter,#0c88e7)}
+.arlo-mascot .arlo-mascot-shell-end{stop-color:var(--arlo-shell-end,#0872cf)}
+.arlo-mascot .arlo-mascot-face-start{stop-color:var(--arlo-face-start,#c5edff)}
+.arlo-mascot .arlo-mascot-face-quarter{stop-color:var(--arlo-face-quarter,#9ad9ff)}
+.arlo-mascot .arlo-mascot-face-middle{stop-color:var(--arlo-face-middle,#7dc7ff)}
+.arlo-mascot .arlo-mascot-face-three-quarter{stop-color:var(--arlo-face-three-quarter,#64b5f7)}
+.arlo-mascot .arlo-mascot-face-end{stop-color:var(--arlo-face-end,#4f9fe9)}
+.arlo-mascot .arlo-mascot-outline{stroke:var(--arlo-shell-outline,#70d2ff);transition:stroke 1.8s ease}
+.arlo-mascot .arlo-mascot-face-outline{stroke:var(--arlo-face-outline,#d7f3ff);transition:stroke 1.8s ease}
+.arlo-mascot .arlo-mascot-ink{fill:#17131b}
+.arlo-mascot .arlo-mascot-eye-highlight{fill:#ffffff}
+.arlo-mascot .arlo-mascot-smile{fill:none;stroke:#17131b;transition:opacity .2s ease,transform .24s cubic-bezier(.2,.8,.2,1)}
+.arlo-mascot .arlo-mascot-tongue{fill:var(--arlo-tongue,#ff8ba9);transition:fill 1.8s ease}
+.arlo-mascot[data-color-finish="transparent"]>svg{opacity:.48}
+.arlo-mascot[data-color-finish="translucent"]>svg{opacity:.72}
+.arlo-mascot[data-color-finish="metallic"]>svg{filter:drop-shadow(0 9px 22px var(--arlo-mascot-glow,rgba(34,139,255,.2))) saturate(.82) contrast(1.08)}
 .arlo-mascot--nav{width:52px;height:52px}
 .arlo-mascot--hero{width:112px;height:112px;margin:0 auto 30px}
 .arlo-mascot--footer{width:44px;height:44px}
@@ -135,14 +154,13 @@ body.lightbox-open { overflow:hidden; }
 .arlo-mascot-surprise{opacity:0;transform:scale(.5)}
 .arlo-mascot:hover .arlo-mascot-blush,.arlo-mascot.is-hovered .arlo-mascot-blush,.brand:hover .arlo-mascot-blush,.brand:focus-visible .arlo-mascot-blush{opacity:1;transform:scale(1)}
 .arlo-mascot:hover .arlo-mascot-smile,.arlo-mascot.is-hovered .arlo-mascot-smile,.brand:hover .arlo-mascot-smile,.brand:focus-visible .arlo-mascot-smile{transform:translateY(2px) scaleX(1.05)}
-.arlo-mascot:hover,.brand:hover .arlo-mascot{filter:drop-shadow(0 0 15px rgba(88,174,255,.34))}
+.arlo-mascot:hover,.brand:hover .arlo-mascot{filter:drop-shadow(0 0 15px var(--arlo-mascot-hover-glow,rgba(88,174,255,.34)));transition:filter .35s ease}
 .arlo-mascot.is-blinking .arlo-mascot-eyes{transform:scaleY(.08)}
 .arlo-mascot.is-surprised .arlo-mascot-eyes{transform:scale(1.08,1.14)}
 .arlo-mascot.is-surprised .arlo-mascot-smile{opacity:0;transform:scale(.5)}
 .arlo-mascot.is-surprised .arlo-mascot-surprise{opacity:1;transform:scale(1)}
 .arlo-mascot.is-surprised>svg{animation:arlo-mascot-boop .54s cubic-bezier(.2,.8,.2,1)}
 .arlo-mascot--hero:focus-visible,.brand:focus-visible .arlo-mascot{outline:2px solid rgba(135,202,255,.9);outline-offset:7px}
-.arlo-mascot-defs symbol{overflow:visible}
 @keyframes arlo-mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes arlo-mascot-boop{0%{transform:scale(1)}22%{transform:scale(1.1,.88)}48%{transform:scale(.96,1.06)}72%{transform:scale(1.025,.98)}100%{transform:scale(1)}}
 .hero-eyebrow{margin-top:8px}
@@ -270,6 +288,7 @@ button:disabled{cursor:not-allowed;opacity:.55}
   button:not(.system-shot){transition:none}
   .mobile-menu-button span{transition:none}
   .arlo-mascot>svg{animation:none}
+  .arlo-mascot>svg,.arlo-mascot stop,.arlo-mascot .arlo-mascot-outline,.arlo-mascot .arlo-mascot-face-outline,.arlo-mascot .arlo-mascot-tongue{transition:none}
   .arlo-mascot.is-surprised>svg{animation:none}
   .arlo-mascot-eyes,.arlo-mascot-blush,.arlo-mascot-smile,.arlo-mascot-surprise{transition:none}
   .experience-card,.feature,.install-step,.spec-card,.release-card{transform:none!important;transition:none}
