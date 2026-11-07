@@ -36,7 +36,7 @@ async function loadTotals() {
 
   updateTotals(result);
   showStatus(
-    "Anonymous page views and download-button clicks · all time",
+    "Anonymous website page views · all time",
     "live"
   );
 }

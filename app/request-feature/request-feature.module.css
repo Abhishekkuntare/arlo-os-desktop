@@ -17,14 +17,16 @@
 }
 
 .brand {
-  color: #f5f6fa;
-  font: 700 17px/1 "Space Grotesk", "DM Sans", sans-serif;
-  letter-spacing: -.06em;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
 }
 
-.brand span {
-  color: #9da2ff;
+.logo {
+  display: block;
+  width: 146px;
+  height: 44px;
+  object-fit: contain;
 }
 
 .backLink {

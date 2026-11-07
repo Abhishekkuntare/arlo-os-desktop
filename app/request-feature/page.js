@@ -16,7 +16,13 @@ export default function RequestFeaturePage() {
     <main className={styles.page}>
       <header className={styles.header}>
         <Link className={styles.brand} href="/" aria-label="ARLO OS home">
-          ARLO<span>OS</span>
+          <img
+            alt="ARLO OS"
+            className={styles.logo}
+            height="44"
+            src="/images/arlo-wordmark-transparent.png"
+            width="146"
+          />
         </Link>
         <Link className={styles.backLink} href="/">
           <span aria-hidden="true">←</span> Back to ARLO OS
@@ -34,9 +40,6 @@ export default function RequestFeaturePage() {
         <RequestFeatureForm />
       </section>
 
-      <footer className={styles.footer}>
-        Your message is saved for the ARLO OS team to review.
-      </footer>
     </main>
   );
 }

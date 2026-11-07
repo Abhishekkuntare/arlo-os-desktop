@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./request-feature.module.css";
 
 const requestTypes = [
@@ -11,9 +11,18 @@ const requestTypes = [
 
 export default function RequestFeatureForm() {
   const [status, setStatus] = useState({ kind: "idle", message: "" });
+  const successTimeout = useRef(null);
+
+  useEffect(
+    () => () => {
+      window.clearTimeout(successTimeout.current);
+    },
+    []
+  );
 
   async function handleSubmit(event) {
     event.preventDefault();
+    window.clearTimeout(successTimeout.current);
     setStatus({ kind: "sending", message: "" });
 
     const form = event.currentTarget;
@@ -42,6 +51,9 @@ export default function RequestFeatureForm() {
         kind: "success",
         message: "Thanks — your message has been sent to the ARLO OS team."
       });
+      successTimeout.current = window.setTimeout(() => {
+        setStatus({ kind: "idle", message: "" });
+      }, 5000);
     } catch (error) {
       setStatus({
         kind: "error",
