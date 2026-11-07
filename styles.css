@@ -3312,6 +3312,21 @@ em {
 
 }
 
+@media (max-width: 560px) {
+  .spec-row:last-child {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 0;
+  }
+
+  .spec-row:last-child b {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}
+
 
 /* ============================================================
    INSTALL
