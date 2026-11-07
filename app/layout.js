@@ -11,18 +11,28 @@ const mediaManifest = JSON.parse(
 
 export const metadata = {
   metadataBase: new URL("https://www.arloos.in/"),
-  title: "ARLO OS — Modern Windows Desktop For You",
+  applicationName: "ARLO OS",
+  title: "ARLO OS for Windows | Customizable Desktop Experience",
   description:
-    "Discover ARLO OS, a modern, customizable Windows desktop with built-in apps, developer tools and optional Ghost AI. macOS and Linux releases are coming soon.",
+    "ARLO OS is a customizable Windows desktop app with productivity tools, virtual workspaces, developer utilities, and optional Ghost AI.",
   alternates: {
     canonical: "/"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large"
+    }
   },
   openGraph: {
     type: "website",
     siteName: "ARLO OS",
-    title: "ARLO OS — Modern Windows Desktop For You",
+    title: "ARLO OS for Windows | Customizable Desktop Experience",
     description:
-      "A modern, customizable Windows desktop with built-in apps, developer tools and optional Ghost AI. macOS and Linux releases are coming soon.",
+      "ARLO OS is a customizable Windows desktop app with productivity tools, virtual workspaces, developer utilities, and optional Ghost AI.",
     url: "/",
     images: [
       {
@@ -34,9 +44,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ARLO OS — Modern Windows Desktop For You",
+    title: "ARLO OS for Windows | Customizable Desktop Experience",
     description:
-      "Discover the customizable ARLO OS desktop, built-in apps, developer tools and optional Ghost AI. macOS and Linux releases are coming soon.",
+      "ARLO OS is a customizable Windows desktop app with productivity tools, virtual workspaces, developer utilities, and optional Ghost AI.",
     images: ["/images/Screenshot%20%28439%29.png"]
   },
   icons: {
