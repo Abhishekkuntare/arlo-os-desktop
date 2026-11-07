@@ -10,7 +10,7 @@ const mediaManifest = JSON.parse(
 );
 
 export const metadata = {
-  metadataBase: new URL("https://arloos.vercel.app/"),
+  metadataBase: new URL("https://www.arloos.in/"),
   title: "ARLO OS — Modern Windows Desktop For You",
   description:
     "Discover ARLO OS, a modern, customizable Windows desktop with built-in apps, developer tools and optional Ghost AI. macOS and Linux releases are coming soon.",

@@ -155,7 +155,7 @@ Screenshots and demonstrations are available in the repository and project relea
 
 The direct Windows installer is not Authenticode-signed. Windows may show an **Unknown publisher** or SmartScreen warning.
 
-**[Download ARLO OS](https://arloos.vercel.app/)**
+**[Download ARLO OS](https://www.arloos.in/)**
 
 ARLO OS is also available from the **[Microsoft Store](https://apps.microsoft.com/store/detail/9NN6LSN1KSZF?cid=DevShareMCLPCS)**. The Store-distributed app receives Microsoft signing and updates through the Store.
 
