@@ -19,3 +19,4 @@
 # Local environment variables (keep secrets out of source control)
 .env*
 !.env.example
+.env.example
