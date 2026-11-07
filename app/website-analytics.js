@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
+let totalsAnimationFrame = 0;
+
 function showStatus(message, state) {
   const status = document.getElementById("website-analytics-status");
   if (!status) return;
@@ -11,16 +13,59 @@ function showStatus(message, state) {
 }
 
 function updateTotals(totals) {
-  const counters = [
+  const updates = [
     ["website-page-views", totals.pageViews],
     ["arlo-os-download-clicks", totals.arloOsDownloadClicks],
     ["arlo-deck-download-clicks", totals.arloDeckDownloadClicks]
-  ];
+  ]
+    .map(([id, target]) => {
+      const counter = document.getElementById(id);
+      if (!counter) return null;
 
-  for (const [id, value] of counters) {
-    const counter = document.getElementById(id);
-    if (counter) counter.textContent = new Intl.NumberFormat().format(value);
+      return {
+        counter,
+        startValue: Number(counter.textContent.replace(/[^\d-]/g, "")) || 0,
+        target
+      };
+    })
+    .filter(Boolean);
+
+  if (!updates.length) return;
+
+  window.cancelAnimationFrame(totalsAnimationFrame);
+  const numberFormatter = new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 0
+  });
+  const formatCounter = value => numberFormatter.format(Math.round(value));
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    updates.forEach(({ counter, target }) => {
+      counter.textContent = formatCounter(target);
+    });
+    return;
   }
+
+  const startTime = performance.now();
+  const animate = now => {
+    const progress = Math.min((now - startTime) / 1400, 1);
+    const easedProgress = 1 - Math.pow(1 - progress, 4);
+
+    updates.forEach(({ counter, startValue, target }) => {
+      counter.textContent = formatCounter(
+        startValue + (target - startValue) * easedProgress
+      );
+    });
+
+    if (progress < 1) {
+      totalsAnimationFrame = window.requestAnimationFrame(animate);
+    } else {
+      totalsAnimationFrame = 0;
+      updates.forEach(({ counter, target }) => {
+        counter.textContent = formatCounter(target);
+      });
+    }
+  };
+
+  totalsAnimationFrame = window.requestAnimationFrame(animate);
 }
 
 async function loadTotals() {
@@ -36,7 +81,7 @@ async function loadTotals() {
 
   updateTotals(result);
   showStatus(
-    "Anonymous website page views · all time",
+    "Website page views · all time",
     "live"
   );
 }
@@ -79,7 +124,7 @@ export default function WebsiteAnalytics() {
     void (async () => {
       try {
         await recordEvent("page_view");
-        if (pathname === "/") await loadTotals();
+        await loadTotals();
       } catch (error) {
         console.warn("ARLO OS website analytics:", error.message);
         if (pathname === "/") {
