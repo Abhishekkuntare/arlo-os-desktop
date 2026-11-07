@@ -9,11 +9,13 @@ const allowedTypes = new Set(["feature", "bug", "contact"]);
 const feedbackDirectory = path.join(process.cwd(), "feedback-data");
 const submissionsPath = path.join(feedbackDirectory, "submissions.jsonl");
 
-function storageNotConfigured() {
+function storageNotConfigured(missingVariables) {
   return Response.json(
     {
       error:
-        "Feedback storage is not configured on this server yet. Please try again later."
+        `Feedback is not configured yet. Add ${missingVariables.join(
+          " and "
+        )} in Vercel → Project Settings → Environment Variables for Production, then redeploy. This message was not saved.`
     },
     { status: 503, headers: { "Cache-Control": "no-store" } }
   );
@@ -117,16 +119,23 @@ export async function POST(request) {
 
   const projectUrl = process.env.SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const missingVariables = [
+    !projectUrl && "SUPABASE_URL",
+    !serviceRoleKey && "SUPABASE_SERVICE_ROLE_KEY"
+  ].filter(Boolean);
 
-  if (Boolean(projectUrl) !== Boolean(serviceRoleKey)) {
-    return storageNotConfigured();
+  if (missingVariables.length > 0) {
+    return storageNotConfigured(missingVariables);
   }
 
   try {
     if (projectUrl && serviceRoleKey) {
       await saveToSupabase(record, projectUrl, serviceRoleKey);
     } else if (process.env.NODE_ENV === "production") {
-      return storageNotConfigured();
+      return storageNotConfigured([
+        "SUPABASE_URL",
+        "SUPABASE_SERVICE_ROLE_KEY"
+      ]);
     } else {
       await saveLocally(record);
     }
