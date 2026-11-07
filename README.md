@@ -428,3 +428,36 @@ If you find ARLO OS useful, consider:
 * 📢 Sharing the project with other developers
 
 Thank you for supporting open-source software.
+
+---
+
+## Feedback submissions
+
+Feature requests, bug reports, contact messages, website page views, and
+download-link clicks use Supabase in production. The website activity dashboard
+shows aggregate all-time counts; page views and download clicks are counted
+without storing cookies, visitor IDs, IP addresses, page URLs, or individual
+event records. Download counts measure link clicks, not confirmed installs.
+For local development without Supabase credentials, feedback messages are
+appended to `feedback-data/submissions.jsonl`. That local data directory is
+excluded from Git.
+
+### Connect feedback storage on Vercel
+
+1. Create a Supabase project at [supabase.com](https://supabase.com/).
+2. In the Supabase SQL Editor, run the schema in
+   [`supabase/schema.sql`](./supabase/schema.sql).
+3. Copy the project URL and the server-side service role key from your
+   Supabase project's API settings. Keep the service role key private; never
+   add it to client-side code or commit it to Git.
+4. For local development, put both values in the ignored `.env.local` file.
+   In Vercel project settings, add `SUPABASE_URL` and
+   `SUPABASE_SERVICE_ROLE_KEY` as environment variables for the deployments
+   you use.
+5. Redeploy the site so the new environment variables take effect. Counts
+   start when the analytics schema is deployed; earlier traffic is not
+   available retroactively.
+
+The feedback table has row-level security enabled and grants access only to
+the server-side `service_role`. Submissions include the sender's name and email
+address. Keep database credentials private and handle submissions accordingly.

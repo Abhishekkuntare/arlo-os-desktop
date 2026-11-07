@@ -77,8 +77,12 @@ currently use advertising or visitor analytics cookies.
 The public Insights section retrieves aggregate Microsoft Store figures from
 Partner Center using a server-side integration. Visitors do not send Partner
 Center credentials to Microsoft, and this integration does not identify or
-track individual website visitors. The website host may process routine
-connection logs under its own privacy and retention practices.
+track individual website visitors. The website also counts aggregate page
+loads and clicks on ARLO OS and ARLO Deck download links. These totals are
+stored by UTC date without cookies, visitor IDs, page URLs, IP addresses, or
+individual event records. Download-link counts represent clicks, not confirmed
+downloads or installs. The website host may process routine connection logs
+under its own privacy and retention practices.
 
 During first-time setup, users may choose **Share profile & enter ARLO OS** to share their name, display name, username, selected roles, email address, and profile photo with the project. This explicit choice sends these details to the project's private Supabase database, where they are visible through the authenticated administrator dashboard. Users who choose **Continue locally** keep their profile on their device.
 

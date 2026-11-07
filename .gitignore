@@ -8,6 +8,7 @@
 # Next.js output and compatibility copies generated from the original site
 /.next/
 /node_modules/
+/feedback-data/
 /public/images/
 /public/media/
 /public/media-manifest.json

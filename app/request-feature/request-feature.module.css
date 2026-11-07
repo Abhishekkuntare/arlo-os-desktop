@@ -1,0 +1,239 @@
+.page {
+  min-height: 100vh;
+  color: #f5f6fa;
+  background:
+    radial-gradient(ellipse at 50% 0, rgba(91, 77, 185, .16), transparent 52%),
+    #050609;
+}
+
+.header {
+  width: min(1120px, calc(100% - 48px));
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.brand {
+  color: #f5f6fa;
+  font: 700 17px/1 "Space Grotesk", "DM Sans", sans-serif;
+  letter-spacing: -.06em;
+  text-decoration: none;
+}
+
+.brand span {
+  color: #9da2ff;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #a5a9b5;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.backLink:hover {
+  color: #fff;
+}
+
+.content {
+  width: min(650px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: clamp(68px, 11vh, 118px) 0 80px;
+}
+
+.eyebrow {
+  margin: 0 0 15px;
+  color: #9298ff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+
+.content h1 {
+  max-width: 610px;
+  margin: 0;
+  color: #f5f6fa;
+  font: 600 clamp(42px, 7vw, 68px)/.99 "Space Grotesk", "DM Sans", sans-serif;
+  letter-spacing: -.065em;
+}
+
+.intro {
+  max-width: 570px;
+  margin: 20px 0 34px;
+  color: #a2a6b2;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.form {
+  display: grid;
+  gap: 20px;
+  padding: clamp(22px, 5vw, 32px);
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 20px;
+  background: rgba(13, 14, 19, .82);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, .22);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field {
+  min-width: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.field > span {
+  color: #c2c5cf;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 11px;
+  outline: none;
+  color: #f5f6fa;
+  background: #08090d;
+  font: inherit;
+  font-size: 13px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.field textarea {
+  min-height: 150px;
+  resize: vertical;
+  line-height: 1.65;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #666b78;
+}
+
+.field select:invalid {
+  color: #777c89;
+}
+
+.field option {
+  color: #f5f6fa;
+  background: #08090d;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: rgba(143, 147, 255, .8);
+  box-shadow: 0 0 0 3px rgba(121, 125, 244, .12);
+}
+
+.submit {
+  width: fit-content;
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(110deg, #777bf2, #625fd2);
+  box-shadow: 0 8px 26px rgba(98, 95, 210, .25);
+  cursor: pointer;
+  font: 600 13px/1 "DM Sans", sans-serif;
+  transition: transform .2s ease, filter .2s ease;
+}
+
+.submit:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.submit:focus-visible {
+  outline: 2px solid #c8c9ff;
+  outline-offset: 3px;
+}
+
+.submit:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.status {
+  min-height: 20px;
+  margin: -8px 0 0;
+  color: #aeb2c0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.error {
+  color: #ff9a9a;
+}
+
+.success {
+  color: #92ddb2;
+}
+
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.footer {
+  padding: 0 24px 34px;
+  color: #737886;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .header {
+    width: calc(100% - 36px);
+    min-height: 68px;
+  }
+
+  .content {
+    width: calc(100% - 36px);
+    padding-top: 68px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .form {
+    gap: 18px;
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backLink,
+  .field input,
+  .field select,
+  .field textarea,
+  .submit {
+    transition: none;
+  }
+}

@@ -264,7 +264,11 @@ body.lightbox-open { overflow:hidden; }
 .desktop-nav a{padding:10px 11px;border:1px solid transparent;border-radius:999px;transition:color .25s ease,background .25s ease,border-color .25s ease,transform .25s ease,box-shadow .25s ease}
 .desktop-nav a:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.06);box-shadow:0 8px 24px rgba(0,0,0,.16)}
 .desktop-nav .nav-store{padding:10px 14px;border-color:rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(130,103,220,.09))}
+.desktop-nav .nav-feedback{padding:10px 14px;border-color:rgba(145,139,255,.36);background:linear-gradient(135deg,rgba(125,115,255,.26),rgba(130,103,220,.14));color:#f1efff}
+.desktop-nav .nav-feedback span{margin-left:4px;opacity:.75}
+.desktop-nav .nav-feedback:hover{border-color:rgba(174,168,255,.66);background:linear-gradient(135deg,rgba(125,115,255,.4),rgba(130,103,220,.24))}
 .desktop-nav .nav-github{padding:10px 14px}
+.mobile-menu .nav-feedback{border:1px solid rgba(145,139,255,.3);background:rgba(125,115,255,.12);color:#e6e3ff}
 .arlo-mascot{position:relative;display:block;flex:0 0 auto;aspect-ratio:1;padding:0;border:0;border-radius:24%;background:transparent;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .arlo-mascot>svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 9px 22px var(--arlo-mascot-glow,rgba(34,139,255,.2)));transition:filter 1.8s ease;animation:arlo-mascot-float 5s ease-in-out infinite}
 .arlo-mascot stop{transition:stop-color 1.8s ease}
@@ -557,6 +561,9 @@ button:disabled{cursor:not-allowed;opacity:.55}
 .insights-refresh:disabled{opacity:.55;cursor:wait}
 .insights-refresh:focus-visible{outline:2px solid #aeb9ff;outline-offset:3px}
 .insights-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;padding:22px 0}
+.insights-analytics-status{min-height:16px;margin:-12px 0 18px;color:#737b8f;font-size:10px;line-height:1.5}
+.insights-analytics-status[data-state=live]{color:#8ecca9}
+.insights-analytics-status[data-state=error]{color:#ff9a9a}
 .insight-stat{position:relative;min-width:0;min-height:150px;overflow:hidden;padding:19px;border:1px solid rgba(255,255,255,.075);border-radius:17px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s ease,background .35s ease,box-shadow .35s ease}
 .insight-stat:hover{transform:translateY(-5px);border-color:rgba(164,178,255,.26);background:linear-gradient(145deg,rgba(135,151,255,.09),rgba(255,255,255,.02));box-shadow:0 18px 38px rgba(0,0,0,.24)}
 .insight-stat-primary{border-color:rgba(143,160,255,.2);background:linear-gradient(145deg,rgba(81,99,195,.17),rgba(255,255,255,.02))}
