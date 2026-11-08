@@ -50,8 +50,15 @@ export const metadata = {
     images: ["/images/Screenshot%20%28439%29.png"]
   },
   icons: {
-    icon: "/images/arlo-favicon.png",
-    apple: "/images/arlo-favicon.png"
+    icon: {
+      url: "/images/arlo-favicon1.png",
+      type: "image/png",
+      sizes: "256x256"
+    },
+    apple: {
+      url: "/images/arlo-favicon1.png",
+      sizes: "256x256"
+    }
   }
 };
 
