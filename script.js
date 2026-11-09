@@ -28,6 +28,9 @@
   const mobileMenu =
     document.getElementById("mobileMenu");
 
+  const heroKeywords = document.querySelectorAll(
+    ".hero-keyword-rotator > span"
+  );
   const consentStorageKey = "arlo-cookie-consent-v1";
   const consentBanner = document.getElementById("cookie-banner");
   const consentDialog = document.getElementById("cookie-preferences");
@@ -188,6 +191,16 @@
     window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+
+  if (heroKeywords.length > 1 && !reducedMotion) {
+    let activeKeyword = 0;
+
+    window.setInterval(() => {
+      heroKeywords[activeKeyword].classList.remove("is-active");
+      activeKeyword = (activeKeyword + 1) % heroKeywords.length;
+      heroKeywords[activeKeyword].classList.add("is-active");
+    }, 2800);
+  }
 
   const analyticsCounters =
     document.querySelectorAll(".insight-number[data-count]");

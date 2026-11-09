@@ -12,9 +12,9 @@ const mediaManifest = JSON.parse(
 export const metadata = {
   metadataBase: new URL("https://www.arloos.in/"),
   applicationName: "ARLO OS",
-  title: "ARLO OS for Windows | Customizable Desktop Experience",
+  title: "ARLO OS for Windows | Custom Desktop Environment",
   description:
-    "ARLO OS is a customizable Windows desktop app with productivity tools, virtual workspaces, developer utilities, and optional Ghost AI.",
+    "ARLO OS is a customizable Windows desktop app for desktop personalization, with productivity tools, virtual workspaces, developer utilities, and optional Ghost AI.",
   alternates: {
     canonical: "/"
   },
@@ -30,9 +30,9 @@ export const metadata = {
   openGraph: {
     type: "website",
     siteName: "ARLO OS",
-    title: "ARLO OS for Windows | Customizable Desktop Experience",
+    title: "ARLO OS for Windows | Custom Desktop Environment",
     description:
-      "ARLO OS is a customizable Windows desktop app with productivity tools, virtual workspaces, developer utilities, and optional Ghost AI.",
+      "ARLO OS is a customizable Windows desktop app for desktop personalization, with productivity tools, virtual workspaces, developer utilities, and optional Ghost AI.",
     url: "/",
     images: [
       {
@@ -44,9 +44,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ARLO OS for Windows | Customizable Desktop Experience",
+    title: "ARLO OS for Windows | Custom Desktop Environment",
     description:
-      "ARLO OS is a customizable Windows desktop app with productivity tools, virtual workspaces, developer utilities, and optional Ghost AI.",
+      "ARLO OS is a customizable Windows desktop app for desktop personalization, with productivity tools, virtual workspaces, developer utilities, and optional Ghost AI.",
     images: ["/images/Screenshot%20%28439%29.png"]
   },
   icons: {

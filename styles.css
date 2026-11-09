@@ -689,6 +689,98 @@ em {
 }
 
 
+.hero-keyword-line {
+
+  display: flex;
+
+  align-items: baseline;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin: 0 auto 20px;
+
+  color: var(--muted);
+
+  font-size: clamp(13px, 1.4vw, 16px);
+
+  line-height: 1.5;
+
+}
+
+
+.hero-keyword-accessible {
+
+  position: absolute;
+
+  width: 1px;
+
+  height: 1px;
+
+  padding: 0;
+
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
+
+}
+
+
+.hero-keyword-intro {
+
+  color: var(--muted);
+
+}
+
+
+.hero-keyword-rotator {
+
+  display: inline-grid;
+
+  grid-template-areas: "keyword";
+
+  color: #d7ceff;
+
+  font-weight: 600;
+
+}
+
+
+.hero-keyword-rotator > span {
+
+  grid-area: keyword;
+
+  align-self: center;
+
+  opacity: 0;
+
+  transform: translateY(9px);
+
+  transition:
+    opacity .45s ease,
+    transform .55s cubic-bezier(.2, .75, .25, 1);
+
+}
+
+
+.hero-keyword-rotator > .is-active {
+
+  opacity: 1;
+
+  transform: translateY(0);
+
+}
+
+
 .hero-copy {
 
   max-width:
