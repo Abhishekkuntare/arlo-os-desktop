@@ -52,14 +52,14 @@ analytics API. To enable it locally or on Vercel:
 Use `.env.example` as the local variable-name template. Never prefix these
 credentials with `NEXT_PUBLIC_` or commit their values. In Vercel, add them in
 the project's Environment Variables settings and redeploy. Without the
-credentials, the page displays the supplied 58-download snapshot and clearly
-marks it as a snapshot; it does not pretend the data is live. Configured Store
-metrics refresh on page load and every 15 minutes. Microsoft Store data covers
-the last 30 days; non-Store downloads remain a separate manually maintained
-count. The shared snapshot records 57 Store installs (including 13 from India)
-and 127 product-page views, plus the separate acquisition funnel (60 attempts,
-54 successful installs, and 31 first-time launches). Partner Center overview
-and funnel reports can show different install totals.
+credentials, the page displays the supplied 115-download snapshot (114 Store
+installs and one reported download outside the Store) and clearly marks it as
+a snapshot; it does not pretend the data is live. Configured Store metrics
+refresh on page load and every 15 minutes. Microsoft Store data covers the
+last 30 days; non-Store downloads remain a separate manually maintained count.
+The current snapshot records 223 product-page views and 114 Store installs;
+13 installs have no updated market details. The acquisition funnel is a
+separate report and can show different install totals.
 
 Microsoft's setup and API references:
 
