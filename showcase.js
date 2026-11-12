@@ -272,7 +272,7 @@
     const iframe = document.createElement("iframe");
     iframe.className = "youtube-player";
     iframe.src = "https://www.youtube-nocookie.com/embed/wGCRAupDEvA?autoplay=1&playsinline=1&rel=0";
-    iframe.title = "ARLO OS | A Smarter Windows Desktop Powered by AI";
+    iframe.title = "ARLO OS | A Smarter Cross-Platform Desktop Powered by AI";
     iframe.loading = "eager";
     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
     iframe.allowFullscreen = true;

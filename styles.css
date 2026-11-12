@@ -938,6 +938,111 @@ em {
 
 }
 
+.button.macos-download-button {
+
+  border-color:
+    rgba(233, 237, 248, .2);
+
+  color:
+    #f5f6fb;
+
+  background:
+    linear-gradient(140deg, rgba(28, 30, 39, .96), rgba(54, 58, 72, .9));
+
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, .3),
+    inset 0 1px rgba(255, 255, 255, .09);
+
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
+
+}
+
+.button.macos-download-button:hover,
+.button.macos-download-button:focus-visible {
+
+  border-color:
+    rgba(233, 237, 248, .48);
+
+  background:
+    linear-gradient(140deg, rgba(43, 46, 58, .98), rgba(66, 71, 88, .96));
+
+  box-shadow:
+    0 20px 46px rgba(0, 0, 0, .38),
+    0 0 28px rgba(188, 198, 230, .12),
+    inset 0 1px rgba(255, 255, 255, .14);
+
+}
+
+.button.macos-download-button:focus-visible {
+
+  outline:
+    2px solid #cbd4ff;
+
+  outline-offset:
+    4px;
+
+}
+
+.button.macos-download-button .macos-icon {
+
+  width:
+    36px;
+
+  height:
+    36px;
+
+  color:
+    #f5f6fb;
+
+  background:
+    rgba(255, 255, 255, .1);
+
+}
+
+.button.macos-download-button .macos-icon svg {
+
+  width:
+    20px;
+
+  height:
+    20px;
+
+  fill:
+    currentColor;
+
+  transition:
+    transform .25s ease;
+
+}
+
+.button.macos-download-button:hover .macos-icon svg {
+
+  transform:
+    scale(1.1) rotate(-5deg);
+
+}
+
+.button.macos-download-button .button-arrow {
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+
+}
+
+.button.macos-download-button:hover .button-arrow {
+
+  opacity:
+    1;
+
+  transform:
+    translateY(3px);
+
+}
+
 
 .button-icon {
 
@@ -5066,6 +5171,13 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button.macos-download-button .macos-icon svg,
+  .button.macos-download-button .button-arrow {
+    transition: none;
+  }
 }
 
 @media (max-width: 650px) {

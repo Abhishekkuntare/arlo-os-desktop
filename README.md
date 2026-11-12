@@ -1,8 +1,10 @@
 # ARLO OS
 
-### A modern, open-source desktop environment for Windows.
+### A modern, open-source desktop environment for Windows and macOS.
 
-ARLO OS is an open-source desktop environment designed to provide a modern, customizable and immersive desktop experience for Windows.
+ARLO OS is an open-source desktop application designed to provide a modern,
+customizable and immersive desktop experience on Windows and macOS. Available
+features vary by platform.
 
 The project combines a familiar desktop workflow with a responsive interface, built-in applications, productivity tools, system utilities and a strong focus on visual design and user experience.
 
@@ -247,10 +249,10 @@ npm run build
 npm run start
 ```
 
-The Windows installer is served from the local `downloads/` folder when that
-file is present. Installer files are not part of this website's tracked source;
-deployments need their own release-download configuration if they should serve
-the installer.
+The Windows installer and macOS universal DMG are served from the local
+`downloads/` folder when present. Installer files are not part of this
+website's tracked source, so deployments must stage both files in the server's
+`downloads/` folder for the same-site download URLs to work.
 
 ### Requirements
 

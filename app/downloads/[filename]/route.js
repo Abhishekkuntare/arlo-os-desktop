@@ -5,7 +5,10 @@ import path from "node:path";
 
 export const runtime = "nodejs";
 
-const availableDownloads = new Set(["ARLO-OS-Setup.exe"]);
+const availableDownloads = new Set([
+  "ARLO-OS-Setup.exe",
+  "ARLO-OS-1.19.0-mac-universal.dmg"
+]);
 
 export async function GET(_request, { params }) {
   const { filename } = await params;
