@@ -5197,3 +5197,44 @@ footer {
     font-size: 13px;
   }
 }
+
+@media (max-width: 650px) {
+  .release-card {
+    width: 100%;
+    min-width: 0;
+    padding: 24px 18px;
+  }
+
+  .release-info {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .release-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .release-title h2 {
+    max-width: 100%;
+    white-space: nowrap;
+    font-size: clamp(30px, 9vw, 36px);
+    line-height: 1;
+  }
+
+  .release-title span {
+    max-width: 100%;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .release-info > p {
+    max-width: 100%;
+    line-height: 1.55;
+  }
+
+  .release-tags span {
+    white-space: nowrap;
+  }
+}

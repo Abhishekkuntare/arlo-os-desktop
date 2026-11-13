@@ -570,3 +570,38 @@
   setInterval(updateClock, 30000);
   openWindow("browser");
 })();
+
+
+/* ============================================================
+   INSTAGRAM REELS FAN
+============================================================ */
+(() => {
+  "use strict";
+
+  const section = document.getElementById("instagram-reels");
+  const viewport = section?.querySelector(".reels-viewport");
+  if (!section || !viewport) return;
+
+  const openReels = () => {
+    section.classList.add("is-open");
+    if (window.matchMedia("(max-width: 760px)").matches) {
+      viewport.scrollLeft = Math.max(0, (viewport.scrollWidth - viewport.clientWidth) / 2);
+    }
+  };
+
+  section.classList.add("reels-ready");
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+    openReels();
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) {
+      openReels();
+      observer.disconnect();
+    }
+  }, { threshold: .18 });
+
+  observer.observe(section);
+})();
