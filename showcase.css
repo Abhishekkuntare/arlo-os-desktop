@@ -586,6 +586,7 @@ button:disabled{cursor:not-allowed;opacity:.55}
 .insights-panel-kicker{color:#828a9c;font-size:8px;font-weight:800;letter-spacing:.14em}
 .insights-panel-heading h3{margin:7px 0 0;color:#e3e5ee;font-family:"Space Grotesk",sans-serif;font-size:15px;letter-spacing:-.025em}
 .insights-panel-note{flex:none;padding:6px 8px;border:1px solid rgba(255,255,255,.07);border-radius:6px;color:#70798d;font-size:7px;font-weight:700;letter-spacing:.1em}
+.insights-country-estimate-note{margin:-8px 0 12px;color:#747c8d;font-size:8px;line-height:1.5}
 .insights-panel-icon{display:grid;width:30px;height:30px;place-items:center;border:1px solid rgba(255,255,255,.08);border-radius:9px;color:#abb7ff}
 .insights-country-list{max-height:262px;overflow-y:auto;overscroll-behavior:contain;scrollbar-color:rgba(151,164,255,.42) rgba(255,255,255,.035);scrollbar-width:thin}
 .insights-country-list:focus-visible{outline:2px solid rgba(167,179,255,.55);outline-offset:3px}
