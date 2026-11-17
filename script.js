@@ -1431,7 +1431,7 @@
   fireworks.setAttribute("aria-hidden", "true");
 
   if (!reducedMotion) {
-    for (let index = 0; index < 48; index += 1) {
+    for (let index = 0; index < 32; index += 1) {
       const piece = document.createElement("span");
       piece.className = "arlo-celebration-confetti__piece";
       piece.style.setProperty("--confetti-x", `${Math.random() * 100}vw`);
@@ -1444,28 +1444,37 @@
     }
 
     const screenDiagonal = Math.hypot(window.innerWidth, window.innerHeight);
+    const burstOrigins = [
+      { position: "left", direction: 1, delay: 0 },
+      { position: "right", direction: -1, delay: 0.14 },
+      { position: "top", direction: 0, delay: 0.28 }
+    ];
 
-    for (let burstIndex = 0; burstIndex < 2; burstIndex += 1) {
+    for (const origin of burstOrigins) {
       const burst = document.createElement("div");
-      burst.className = `arlo-fireworks__burst${burstIndex ? " arlo-fireworks__burst--right" : ""}`;
-      const direction = burstIndex ? -1 : 1;
+      burst.className = `arlo-fireworks__burst arlo-fireworks__burst--${origin.position}`;
 
-      for (let index = 0; index < 32; index += 1) {
+      for (let index = 0; index < 18; index += 1) {
         const spark = document.createElement("span");
-        const angle = (8 + Math.random() * 78) * Math.PI / 180;
-        const distance = screenDiagonal * (0.32 + Math.random() * 0.56);
+        const angle = (12 + Math.random() * 66) * Math.PI / 180;
+        const distance = screenDiagonal * (0.24 + Math.random() * 0.54);
+        const direction = origin.position === "top"
+          ? (Math.random() < 0.5 ? -1 : 1)
+          : origin.direction;
         const horizontalTravel = Math.cos(angle) * distance * direction;
-        const verticalTravel = -Math.sin(angle) * distance;
+        const verticalTravel = Math.sin(angle) * distance *
+          (origin.position === "top" ? 1 : -1);
+        const fallDistance = window.innerHeight * (origin.position === "top" ? 0.3 : 0.44);
         spark.className = "arlo-fireworks__spark";
         spark.style.setProperty("--firework-x", `${horizontalTravel}px`);
         spark.style.setProperty("--firework-y", `${verticalTravel}px`);
         spark.style.setProperty("--firework-end-x", `${horizontalTravel * 1.08}px`);
-        spark.style.setProperty("--firework-end-y", `${verticalTravel + window.innerHeight * 0.48}px`);
-        spark.style.setProperty("--firework-spin", `${540 + Math.random() * 540}deg`);
-        spark.style.setProperty("--firework-width", `${4 + Math.random() * 5}px`);
-        spark.style.setProperty("--firework-height", `${8 + Math.random() * 12}px`);
-        spark.style.setProperty("--firework-delay", `${burstIndex * 0.16 + Math.random() * 0.22}s`);
-        spark.style.setProperty("--firework-color", colors[(index + burstIndex * 2) % colors.length]);
+        spark.style.setProperty("--firework-end-y", `${verticalTravel + fallDistance}px`);
+        spark.style.setProperty("--firework-spin", `${360 + Math.random() * 360}deg`);
+        spark.style.setProperty("--firework-width", `${4 + Math.random() * 4}px`);
+        spark.style.setProperty("--firework-height", `${8 + Math.random() * 9}px`);
+        spark.style.setProperty("--firework-delay", `${origin.delay + Math.random() * 0.16}s`);
+        spark.style.setProperty("--firework-color", colors[Math.floor(Math.random() * colors.length)]);
         burst.append(spark);
       }
 
@@ -1475,7 +1484,7 @@
     document.body.append(confetti);
     document.body.append(fireworks);
     window.setTimeout(() => confetti.remove(), 6000);
-    window.setTimeout(() => fireworks.remove(), 3800);
+    window.setTimeout(() => fireworks.remove(), 3400);
   }
 
   const toast = document.createElement("aside");

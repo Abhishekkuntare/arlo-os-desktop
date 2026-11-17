@@ -5298,10 +5298,21 @@ footer {
   --firework-burst-delay: 0s;
 }
 
+.arlo-fireworks__burst--left {
+  --firework-burst-delay: 0s;
+}
+
 .arlo-fireworks__burst--right {
   right: max(28px, env(safe-area-inset-right));
   left: auto;
   --firework-burst-delay: .18s;
+}
+
+.arlo-fireworks__burst--top {
+  top: max(28px, env(safe-area-inset-top));
+  bottom: auto;
+  left: 50%;
+  --firework-burst-delay: .32s;
 }
 
 .arlo-fireworks__burst::after {
@@ -5317,6 +5328,11 @@ footer {
   animation: arlo-firework-flash .5s ease-out var(--firework-burst-delay) both;
 }
 
+.arlo-fireworks__burst--top::after {
+  top: -7px;
+  bottom: auto;
+}
+
 .arlo-fireworks__spark {
   position: absolute;
   bottom: 0;
@@ -5325,10 +5341,9 @@ footer {
   height: var(--firework-height);
   border-radius: 2px;
   background: var(--firework-color);
-  box-shadow: 0 0 7px var(--firework-color);
   opacity: 0;
   transform-origin: center;
-  animation: arlo-firework-pop 2.8s cubic-bezier(.16, .72, .24, 1)
+  animation: arlo-firework-pop 2.5s cubic-bezier(.22, .72, .24, 1)
     var(--firework-delay) both;
 }
 
@@ -5347,6 +5362,7 @@ footer {
     opacity: 1;
     transform: translate3d(var(--firework-x), var(--firework-y), 0)
       rotate(var(--firework-spin)) scale(1);
+    animation-timing-function: cubic-bezier(.2, .8, .2, 1);
   }
 
   100% {
