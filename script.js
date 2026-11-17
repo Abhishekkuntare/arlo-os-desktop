@@ -1419,6 +1419,98 @@
 (() => {
   "use strict";
 
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  const colors = ["#ff6b6b", "#ffd166", "#06d6a0", "#4cc9f0", "#b388ff", "#ff8fab"];
+  const confetti = document.createElement("div");
+  confetti.className = "arlo-celebration-confetti";
+  confetti.setAttribute("aria-hidden", "true");
+  const fireworks = document.createElement("div");
+  fireworks.className = "arlo-fireworks";
+  fireworks.setAttribute("aria-hidden", "true");
+
+  if (!reducedMotion) {
+    for (let index = 0; index < 48; index += 1) {
+      const piece = document.createElement("span");
+      piece.className = "arlo-celebration-confetti__piece";
+      piece.style.setProperty("--confetti-x", `${Math.random() * 100}vw`);
+      piece.style.setProperty("--confetti-drift", `${(Math.random() - 0.5) * 28}vw`);
+      piece.style.setProperty("--confetti-duration", `${3.2 + Math.random() * 2}s`);
+      piece.style.setProperty("--confetti-delay", `${Math.random() * 0.55}s`);
+      piece.style.setProperty("--confetti-color", colors[index % colors.length]);
+      piece.style.setProperty("--confetti-rotation", `${Math.random() * 360}deg`);
+      confetti.append(piece);
+    }
+
+    const screenDiagonal = Math.hypot(window.innerWidth, window.innerHeight);
+
+    for (let burstIndex = 0; burstIndex < 2; burstIndex += 1) {
+      const burst = document.createElement("div");
+      burst.className = `arlo-fireworks__burst${burstIndex ? " arlo-fireworks__burst--right" : ""}`;
+      const direction = burstIndex ? -1 : 1;
+
+      for (let index = 0; index < 32; index += 1) {
+        const spark = document.createElement("span");
+        const angle = (8 + Math.random() * 78) * Math.PI / 180;
+        const distance = screenDiagonal * (0.32 + Math.random() * 0.56);
+        const horizontalTravel = Math.cos(angle) * distance * direction;
+        const verticalTravel = -Math.sin(angle) * distance;
+        spark.className = "arlo-fireworks__spark";
+        spark.style.setProperty("--firework-x", `${horizontalTravel}px`);
+        spark.style.setProperty("--firework-y", `${verticalTravel}px`);
+        spark.style.setProperty("--firework-end-x", `${horizontalTravel * 1.08}px`);
+        spark.style.setProperty("--firework-end-y", `${verticalTravel + window.innerHeight * 0.48}px`);
+        spark.style.setProperty("--firework-spin", `${540 + Math.random() * 540}deg`);
+        spark.style.setProperty("--firework-width", `${4 + Math.random() * 5}px`);
+        spark.style.setProperty("--firework-height", `${8 + Math.random() * 12}px`);
+        spark.style.setProperty("--firework-delay", `${burstIndex * 0.16 + Math.random() * 0.22}s`);
+        spark.style.setProperty("--firework-color", colors[(index + burstIndex * 2) % colors.length]);
+        burst.append(spark);
+      }
+
+      fireworks.append(burst);
+    }
+
+    document.body.append(confetti);
+    document.body.append(fireworks);
+    window.setTimeout(() => confetti.remove(), 6000);
+    window.setTimeout(() => fireworks.remove(), 3800);
+  }
+
+  const toast = document.createElement("aside");
+  toast.className = "arlo-celebration";
+  toast.setAttribute("aria-live", "polite");
+  toast.setAttribute("aria-atomic", "true");
+  toast.innerHTML = `
+    <span class="arlo-celebration__spark" aria-hidden="true">✦</span>
+    <div class="arlo-celebration__message">
+      <strong>200+ users and counting!</strong>
+      <span>Thanks for being part of the ARLO OS journey.</span>
+    </div>
+    <button class="arlo-celebration__close" type="button" aria-label="Dismiss celebration">×</button>
+  `;
+  document.body.append(toast);
+  window.requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+  let dismissTimer = window.setTimeout(dismiss, 6500);
+
+  function dismiss() {
+    window.clearTimeout(dismissTimer);
+    toast.classList.remove("is-visible");
+    window.setTimeout(() => {
+      toast.remove();
+      confetti.remove();
+      fireworks.remove();
+    }, reducedMotion ? 0 : 300);
+  }
+
+  toast.querySelector(".arlo-celebration__close").addEventListener("click", dismiss);
+})();
+
+(() => {
+  "use strict";
+
   const mascots = Array.from(document.querySelectorAll("[data-arlo-mascot]"));
   if (!mascots.length) return;
 
