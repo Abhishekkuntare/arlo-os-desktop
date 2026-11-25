@@ -4,6 +4,47 @@
 
   document.body.classList.add("arlo-pirate-theme");
 
+  const loadingScreen = document.getElementById("arlo-loading-screen");
+
+  if (loadingScreen) {
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+    let dismissTimer = 0;
+    let fadeTimer = 0;
+
+    const dismissLoadingScreen = () => {
+      window.clearTimeout(dismissTimer);
+      window.clearTimeout(fadeTimer);
+      if (loadingScreen.open) {
+        loadingScreen.close();
+      }
+    };
+
+    loadingScreen.addEventListener("close", () => {
+      window.clearTimeout(dismissTimer);
+      window.clearTimeout(fadeTimer);
+    });
+
+    loadingScreen.querySelector("[data-loading-screen-skip]")?.addEventListener(
+      "click",
+      dismissLoadingScreen
+    );
+
+    if (loadingScreen.open) {
+      loadingScreen.removeAttribute("open");
+      loadingScreen.showModal();
+      if (reducedMotion.matches) {
+        dismissTimer = window.setTimeout(dismissLoadingScreen, 5000);
+      } else {
+        dismissTimer = window.setTimeout(() => {
+          loadingScreen.classList.add("is-leaving");
+          fadeTimer = window.setTimeout(dismissLoadingScreen, 500);
+        }, 4500);
+      }
+    }
+  }
+
   const carousel = document.querySelector(".arlo-pirate-carousel");
 
   if (carousel) {

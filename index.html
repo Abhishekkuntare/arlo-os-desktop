@@ -97,6 +97,28 @@
 
 <body class="arlo-pirate-theme">
 
+  <dialog class="arlo-loading-screen" id="arlo-loading-screen" open aria-labelledby="arlo-loading-screen-title">
+    <div class="arlo-loading-screen__backdrop" aria-hidden="true"></div>
+    <img
+      class="arlo-loading-screen__poster"
+      src="/images/arlo-pirate-loading-poster.webp"
+      alt="ARLO OS and One Piece crew poster"
+      fetchpriority="high"
+    >
+    <div class="arlo-loading-screen__shade" aria-hidden="true"></div>
+    <button class="arlo-loading-screen__skip" type="button" data-loading-screen-skip>
+      Skip intro <span aria-hidden="true">×</span>
+    </button>
+    <div class="arlo-loading-screen__message">
+      <span class="arlo-loading-screen__eyebrow">ARLO OS × ONE PIECE EDITION</span>
+      <h1 id="arlo-loading-screen-title">A new voyage begins.</h1>
+      <span class="arlo-loading-screen__status">SETTING SAIL</span>
+      <div class="arlo-loading-screen__progress" aria-hidden="true">
+        <span></span>
+      </div>
+    </div>
+  </dialog>
+
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <!-- =====================================================
