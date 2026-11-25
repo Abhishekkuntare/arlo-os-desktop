@@ -2,6 +2,130 @@
 
   "use strict";
 
+  document.body.classList.add("arlo-pirate-theme");
+
+  const carousel = document.querySelector(".arlo-pirate-carousel");
+
+  if (carousel) {
+    const slides = Array.from(carousel.querySelectorAll(".arlo-pirate-carousel__slide"));
+    const dots = Array.from(
+      carousel.querySelectorAll("[data-carousel-dot]")
+    );
+    const slideCount = carousel.querySelector("[data-carousel-count]");
+    const pauseButton = carousel.querySelector("[data-carousel-pause]");
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+    let activeSlide = 0;
+    let rotationTimer = 0;
+    let manuallyPaused = reducedMotion.matches;
+    let pointerPaused = false;
+    let focusPaused = false;
+
+    const showSlide = index => {
+      activeSlide = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        const isActive = slideIndex === activeSlide;
+        slide.classList.toggle("is-active", isActive);
+        slide.setAttribute("aria-hidden", String(!isActive));
+      });
+      dots.forEach((dot, dotIndex) => {
+        if (dotIndex === activeSlide) {
+          dot.setAttribute("aria-current", "true");
+        } else {
+          dot.removeAttribute("aria-current");
+        }
+      });
+      if (slideCount) {
+        slideCount.textContent = String(activeSlide + 1).padStart(2, "0");
+      }
+    };
+
+    const updateRotation = () => {
+      window.clearInterval(rotationTimer);
+      if (
+        carousel.isConnected &&
+        !document.hidden &&
+        !manuallyPaused &&
+        !pointerPaused &&
+        !focusPaused &&
+        slides.length > 1
+      ) {
+        rotationTimer = window.setInterval(() => {
+          showSlide(activeSlide + 1);
+        }, 6500);
+      }
+      if (pauseButton) {
+        pauseButton.textContent = manuallyPaused ? "▶" : "Ⅱ";
+        pauseButton.setAttribute(
+          "aria-label",
+          manuallyPaused ? "Play carousel" : "Pause carousel"
+        );
+        pauseButton.setAttribute("aria-pressed", String(manuallyPaused));
+      }
+    };
+
+    carousel.querySelector("[data-carousel-previous]")?.addEventListener(
+      "click",
+      () => {
+        showSlide(activeSlide - 1);
+        updateRotation();
+      }
+    );
+    carousel.querySelector("[data-carousel-next]")?.addEventListener(
+      "click",
+      () => {
+        showSlide(activeSlide + 1);
+        updateRotation();
+      }
+    );
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        showSlide(index);
+        updateRotation();
+      });
+    });
+    pauseButton?.addEventListener("click", () => {
+      manuallyPaused = !manuallyPaused;
+      updateRotation();
+    });
+    carousel?.addEventListener("pointerenter", () => {
+      pointerPaused = true;
+      updateRotation();
+    });
+    carousel?.addEventListener("pointerleave", () => {
+      pointerPaused = false;
+      updateRotation();
+    });
+    carousel?.addEventListener("focusin", () => {
+      focusPaused = true;
+      updateRotation();
+    });
+    carousel?.addEventListener("focusout", event => {
+      if (!carousel.contains(event.relatedTarget)) {
+        focusPaused = false;
+        updateRotation();
+      }
+    });
+    carousel.addEventListener("keydown", event => {
+      if (event.key === "ArrowLeft") {
+        showSlide(activeSlide - 1);
+        updateRotation();
+      } else if (event.key === "ArrowRight") {
+        showSlide(activeSlide + 1);
+        updateRotation();
+      }
+    });
+    document.addEventListener("visibilitychange", updateRotation);
+    reducedMotion.addEventListener("change", event => {
+      if (event.matches) {
+        manuallyPaused = true;
+        updateRotation();
+      }
+    });
+    showSlide(0);
+    updateRotation();
+  }
 
   /* ==========================================================
      ELEMENTS
@@ -12,12 +136,6 @@
 
   const downloadNote =
     document.getElementById("downloadNote");
-
-  const windowCard =
-    document.getElementById("windowCard");
-
-  const desktopStage =
-    document.getElementById("desktopStage");
 
   const cursorGlow =
     document.getElementById("cursorGlow");
@@ -734,15 +852,6 @@
     hero
 
       .from(
-        ".hero-brand-lockup",
-        {
-          y: 18,
-          opacity: 0,
-          duration: .85
-        }
-      )
-
-      .from(
         ".hero-eyebrow",
         {
           y: 25,
@@ -803,72 +912,7 @@
             "power3.out"
         },
         "-=.15"
-      )
-
-      .from(
-        ".floating-pill",
-        {
-          y: 15,
-          opacity: 0,
-          duration: .5
-        },
-        "-=.5"
       );
-
-
-    /* ========================================================
-       STAGE
-    ====================================================== */
-
-    gsap.to(
-      ".stage-glow",
-      {
-        scale: 1.15,
-        opacity: .22,
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease:
-          "sine.inOut"
-      }
-    );
-
-    gsap.to(
-      ".hero-brand-lockup > img",
-      {
-        y: -5,
-        duration: 3.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      }
-    );
-
-
-    gsap.to(
-      ".floating-pill",
-      {
-        y: -7,
-        duration: 2.8,
-        repeat: -1,
-        yoyo: true,
-        ease:
-          "sine.inOut"
-      }
-    );
-
-
-    gsap.to(
-      ".floating-status",
-      {
-        y: -6,
-        duration: 2.4,
-        repeat: -1,
-        yoyo: true,
-        ease:
-          "sine.inOut"
-      }
-    );
 
 
     /* ========================================================
@@ -893,38 +937,6 @@
         duration: 110,
         repeat: -1,
         ease: "none"
-      }
-    );
-
-
-    /* ========================================================
-       WALLPAPER
-    ====================================================== */
-
-    gsap.to(
-      ".orb-a",
-      {
-        x: 30,
-        y: -20,
-        duration: 5,
-        repeat: -1,
-        yoyo: true,
-        ease:
-          "sine.inOut"
-      }
-    );
-
-
-    gsap.to(
-      ".orb-b",
-      {
-        x: -25,
-        y: 20,
-        duration: 6,
-        repeat: -1,
-        yoyo: true,
-        ease:
-          "sine.inOut"
       }
     );
 
@@ -993,56 +1005,6 @@
       ==================================================== */
 
       gsap.to(
-        ".window-card",
-        {
-          y: -45,
-
-          scrollTrigger: {
-
-            trigger:
-              ".desktop-stage",
-
-            start:
-              "top bottom",
-
-            end:
-              "bottom top",
-
-            scrub:
-              1.2
-
-          }
-
-        }
-      );
-
-
-      gsap.to(
-        ".stage-glow",
-        {
-          y: -70,
-
-          scrollTrigger: {
-
-            trigger:
-              ".desktop-stage",
-
-            start:
-              "top bottom",
-
-            end:
-              "bottom top",
-
-            scrub:
-              1.5
-
-          }
-
-        }
-      );
-
-
-      gsap.to(
         ".developer-glow",
         {
           y: -100,
@@ -1062,101 +1024,6 @@
               1.5
 
           }
-
-        }
-      );
-
-    }
-
-
-    /* ========================================================
-       3D DESKTOP
-    ====================================================== */
-
-    if (
-      desktopStage &&
-      windowCard &&
-      window.matchMedia(
-        "(pointer:fine)"
-      ).matches
-    ) {
-
-      desktopStage.addEventListener(
-        "mousemove",
-        event => {
-
-          const rect =
-            desktopStage
-              .getBoundingClientRect();
-
-
-          const x =
-            (
-              event.clientX -
-              rect.left
-            ) / rect.width;
-
-
-          const y =
-            (
-              event.clientY -
-              rect.top
-            ) / rect.height;
-
-
-          const rotateY =
-            (x - .5) * 7;
-
-
-          const rotateX =
-            (.5 - y) * 5;
-
-
-          gsap.to(
-            windowCard,
-            {
-              rotateX:
-                4 + rotateX,
-
-              rotateY:
-                rotateY,
-
-              duration:
-                .65,
-
-              ease:
-                "power3.out",
-
-              overwrite:
-                true
-
-            }
-          );
-
-        }
-      );
-
-
-      desktopStage.addEventListener(
-        "mouseleave",
-        () => {
-
-          gsap.to(
-            windowCard,
-            {
-              rotateX:
-                4,
-
-              rotateY:
-                0,
-
-              duration:
-                .9,
-
-              ease:
-                "power3.out"
-            }
-          );
 
         }
       );
@@ -1494,7 +1361,7 @@
   toast.innerHTML = `
     <span class="arlo-celebration__spark" aria-hidden="true">✦</span>
     <div class="arlo-celebration__message">
-      <strong>414 users and counting!</strong>
+      <strong>551 users and counting!</strong>
       <span>Thanks for being part of the ARLO OS journey.</span>
     </div>
     <button class="arlo-celebration__close" type="button" aria-label="Dismiss celebration">×</button>

@@ -95,7 +95,7 @@
   <link rel="stylesheet" href="showcase.css">
 </head>
 
-<body>
+<body class="arlo-pirate-theme">
 
   <a class="skip-link" href="#main-content">Skip to content</a>
 
@@ -415,145 +415,65 @@
 
   </div>
 
-  <!-- =================================================
-       DESKTOP PREVIEW
-  ================================================== -->
-  <div
-    class="desktop-stage"
-    id="desktopStage"
-    aria-label="Preview of the ARLO OS desktop interface"
-  >
-    <div class="stage-grid" aria-hidden="true"></div>
-    <div class="stage-glow" aria-hidden="true"></div>
-    <div class="stage-ring ring-one" aria-hidden="true"></div>
-    <div class="stage-ring ring-two" aria-hidden="true"></div>
-
-    <!-- DESKTOP WINDOW -->
-    <div class="window-card" id="windowCard">
-      <div class="window-reflection" aria-hidden="true"></div>
-
-      <!-- TOP BAR -->
-      <div class="window-top">
-        <div class="traffic" aria-hidden="true">
-          <i></i>
-          <i></i>
-          <i></i>
-        </div>
-
-        <div class="window-title">ARLO OS</div>
-
-        <div class="window-system">
-          <span class="system-dot" aria-hidden="true"></span>
-          ARLO OS · Desktop
-        </div>
+  <div class="desktop-stage">
+    <section class="arlo-pirate-showcase" aria-labelledby="arlo-pirate-showcase-title">
+      <div class="arlo-pirate-showcase__topbar">
+        <span class="arlo-pirate-showcase__brand"><span>ARLO OS</span><i aria-hidden="true">×</i> ONE PIECE EDITION</span>
+        <span class="arlo-pirate-showcase__edition">5 SLIDES · ONE ADVENTURE</span>
       </div>
 
-      <!-- DESKTOP -->
-      <div class="os-desktop">
-
-        <!-- WALLPAPER -->
-        <div class="os-wallpaper" aria-hidden="true">
-          <div class="wallpaper-orb orb-a"></div>
-          <div class="wallpaper-orb orb-b"></div>
-          <div class="wallpaper-orb orb-c"></div>
+      <section class="arlo-pirate-carousel" aria-label="ARLO OS and One Piece edition highlights" aria-roledescription="carousel">
+        <div class="arlo-pirate-carousel__slides" aria-live="off">
+          <article class="arlo-pirate-carousel__slide is-active" style="--slide-image: url('/images/arlo-pirate-edition-slide-1.webp')" role="group" aria-roledescription="slide" aria-label="1 of 5" aria-hidden="false">
+            <img src="/images/arlo-pirate-edition-slide-1.webp" alt="The ARLO OS crew together at sunset" fetchpriority="high">
+            <div class="arlo-pirate-carousel__caption"><span>THE CREW</span><h2>The adventure starts with the crew.</h2></div>
+          </article>
+          <article class="arlo-pirate-carousel__slide" style="--slide-image: url('/images/arlo-pirate-edition-slide-2.webp')" role="group" aria-roledescription="slide" aria-label="2 of 5" aria-hidden="true">
+            <img src="/images/arlo-pirate-edition-slide-2.webp" alt="A colorful One Piece crew gathered around the ARLO OS edition artwork" loading="lazy">
+            <div class="arlo-pirate-carousel__caption"><span>THE ADVENTURE</span><h2>Set sail for something legendary.</h2></div>
+          </article>
+          <article class="arlo-pirate-carousel__slide" style="--slide-image: url('/images/arlo-pirate-edition-slide-3.webp')" role="group" aria-roledescription="slide" aria-label="3 of 5" aria-hidden="true">
+            <img src="/images/arlo-pirate-edition-slide-3.webp" alt="A pirate crew setting out toward the ARLO OS edition ship" loading="lazy">
+            <div class="arlo-pirate-carousel__caption"><span>YOUR DESTINATION</span><h2>Your desktop. Your next adventure.</h2></div>
+          </article>
+          <article class="arlo-pirate-carousel__slide" style="--slide-image: url('/images/arlo-pirate-edition-slide-4.webp')" role="group" aria-roledescription="slide" aria-label="4 of 5" aria-hidden="true">
+            <img src="/images/arlo-pirate-edition-slide-4.webp" alt="A pirate captain and ship ready to begin a new journey" loading="lazy">
+            <div class="arlo-pirate-carousel__caption"><span>THE OPEN SEA</span><h2>Make room for a new world.</h2></div>
+          </article>
+          <article class="arlo-pirate-carousel__slide" style="--slide-image: url('/images/arlo-pirate-edition-slide-5.webp')" role="group" aria-roledescription="slide" aria-label="5 of 5" aria-hidden="true">
+            <img src="/images/arlo-pirate-edition-slide-5.webp" alt="ARLO OS and One Piece edition crew with themed desktop items" loading="lazy">
+            <div class="arlo-pirate-carousel__caption"><span>THE EDITION</span><h2>One crew. One remarkable experience.</h2></div>
+          </article>
         </div>
 
-        <!-- MENU -->
-        <div class="os-menu">
-          <strong>ARLO OS</strong>
-          <span>Workspace</span>
-          <span>File</span>
-          <span>Edit</span>
-          <span>View</span>
-          <span>Window</span>
-          <span>Help</span>
-
-          <div class="os-menu-right">
-            <span aria-hidden="true">◌</span>
-            <span aria-hidden="true">◔</span>
-            <span>09:41</span>
+        <div class="arlo-pirate-carousel__controls">
+          <span class="arlo-pirate-carousel__count" aria-live="polite"><b data-carousel-count>01</b><i>/</i>05</span>
+          <div class="arlo-pirate-carousel__dots" role="group" aria-label="Choose a carousel slide">
+            <button type="button" aria-label="Go to slide 1" aria-current="true" data-carousel-dot></button>
+            <button type="button" aria-label="Go to slide 2" data-carousel-dot></button>
+            <button type="button" aria-label="Go to slide 3" data-carousel-dot></button>
+            <button type="button" aria-label="Go to slide 4" data-carousel-dot></button>
+            <button type="button" aria-label="Go to slide 5" data-carousel-dot></button>
+          </div>
+          <div class="arlo-pirate-carousel__actions">
+            <button type="button" aria-label="Previous slide" data-carousel-previous>←</button>
+            <button type="button" aria-label="Pause carousel" aria-pressed="false" data-carousel-pause>Ⅱ</button>
+            <button type="button" aria-label="Next slide" data-carousel-next>→</button>
           </div>
         </div>
+      </section>
 
-        <!-- DESKTOP CONTENT -->
-        <div class="os-content">
-
-          <div class="welcome-card">
-            <div class="welcome-small">YOUR WORKSPACE</div>
-
-            <h3>
-              Build something
-              <strong>remarkable.</strong>
-            </h3>
-
-            <p>
-              Your apps. Your projects.
-              Your workspace.
-            </p>
-          </div>
-
-          <!-- MINI WINDOWS -->
-          <div class="mini-window code-window">
-            <div class="mini-window-header">
-              <span class="mini-dot" aria-hidden="true"></span>
-              <span>Code Studio</span>
-            </div>
-
-            <div class="code-lines" aria-hidden="true">
-              <i></i>
-              <i></i>
-              <i></i>
-              <i></i>
-              <i></i>
-            </div>
-          </div>
-
-          <div class="mini-window browser-window">
-            <div class="mini-window-header">
-              <span class="mini-dot" aria-hidden="true"></span>
-              <span>Browser</span>
-            </div>
-
-            <div class="browser-content" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-
-          <!-- DOCK -->
-          <div class="dock" aria-hidden="true">
-            <div class="dock-icon active">A</div>
-            <div class="dock-icon">◉</div>
-            <div class="dock-icon">◫</div>
-            <div class="dock-icon">◈</div>
-            <div class="dock-icon">⌘</div>
-            <div class="dock-icon">✦</div>
-            <div class="dock-divider"></div>
-            <div class="dock-icon">⚙</div>
-          </div>
-
+      <footer class="arlo-pirate-showcase__footer">
+        <div class="arlo-pirate-showcase__copy">
+          <span class="arlo-pirate-showcase__eyebrow">A SPECIAL CREW-UP</span>
+          <h2 id="arlo-pirate-showcase-title">ARLO OS <span aria-hidden="true">×</span> ONE PIECE</h2>
+          <p>A little more adventure for your desktop.</p>
         </div>
-      </div>
-    </div>
-
-    <!-- FEATURE LABEL -->
-    <div class="floating-pill" aria-label="Desktop features">
-      <span aria-hidden="true">✦</span>
-      Dock
-      <i aria-hidden="true"></i>
-      Workspaces
-      <i aria-hidden="true"></i>
-      File Manager
-      <i aria-hidden="true"></i>
-      Search
-    </div>
-
-    <!-- STATUS -->
-    <div class="floating-status">
-      <span class="status-dot" aria-hidden="true"></span>
-      A desktop experience, reimagined
-    </div>
+        <a class="arlo-pirate-showcase__enter" href="#features">
+          Explore ARLO OS <span aria-hidden="true">→</span>
+        </a>
+      </footer>
+    </section>
   </div>
 
   <!-- SCROLL INDICATOR -->
@@ -1909,18 +1829,18 @@
         <div class="insights-stats">
           <article class="insight-stat insight-stat-primary">
             <div class="insight-stat-top"><span>COMMUNITY DOWNLOADS</span><span class="insight-stat-icon" aria-hidden="true">↓</span></div>
-            <strong class="insight-number" id="insight-download-total" data-count="414">414</strong>
+            <strong class="insight-number" id="insight-download-total" data-count="551">551</strong>
             <small>Store installs plus 1 reported download outside the Store</small>
             <div class="insight-stat-glow" aria-hidden="true"></div>
           </article>
           <article class="insight-stat">
             <div class="insight-stat-top"><span>STORE INSTALLS · LAST 30 DAYS</span><span class="insight-stat-icon" aria-hidden="true">↗</span></div>
-            <strong class="insight-number" id="insight-store-installs" data-count="413">413</strong>
+            <strong class="insight-number" id="insight-store-installs" data-count="550">550</strong>
             <small>Estimated community snapshot · last 30 days</small>
           </article>
           <article class="insight-stat">
             <div class="insight-stat-top"><span>PRODUCT PAGE VIEWS · LAST 30 DAYS</span><span class="insight-stat-icon" aria-hidden="true">◉</span></div>
-            <strong class="insight-number" id="insight-page-views" data-count="532">532</strong>
+            <strong class="insight-number" id="insight-page-views" data-count="718">718</strong>
             <small>Estimated community snapshot · last 30 days</small>
           </article>
         </div>
@@ -1945,20 +1865,20 @@
             <p class="insights-country-estimate-note">Country distribution is an estimate based on the updated snapshot; verified Partner Center market data replaces it when connected.</p>
             <div class="insights-country-list" role="table" aria-label="Estimated Microsoft Store installs by country" tabindex="0">
               <div class="insights-country-row insights-country-header" role="row"><span role="columnheader">COUNTRY / REGION</span><span role="columnheader">INSTALLS</span></div>
-              <div class="insights-country-row" role="row"><span role="cell">India</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:25.42%"></i></span><b>105</b><small>25.42%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">United Kingdom</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:21.79%"></i></span><b>90</b><small>21.79%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">United States</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:15.98%"></i></span><b>66</b><small>15.98%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">China</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:10.41%"></i></span><b>43</b><small>10.41%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">New Zealand</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:2.18%"></i></span><b>9</b><small>2.18%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">Japan</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:2.18%"></i></span><b>9</b><small>2.18%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">Canada</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:2.18%"></i></span><b>9</b><small>2.18%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">Brazil</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:1.69%"></i></span><b>7</b><small>1.69%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">Australia</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:1.45%"></i></span><b>6</b><small>1.45%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">Thailand</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:1.45%"></i></span><b>6</b><small>1.45%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">Spain</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:0.73%"></i></span><b>3</b><small>0.73%</small></span></div>
-              <div class="insights-country-row" role="row"><span role="cell">Egypt</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:0.73%"></i></span><b>3</b><small>0.73%</small></span></div>
-              <div class="insights-country-row insights-country-other" role="row"><span role="cell">Other Store markets</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:8.47%"></i></span><b>35</b><small>8.47%</small></span></div>
-              <div class="insights-country-row insights-country-other" role="row"><span role="cell">Additional installs · market details unavailable</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:5.33%"></i></span><b>22</b><small>5.33%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">India</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:26.36%"></i></span><b>145</b><small>26.36%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">United Kingdom</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:23.09%"></i></span><b>127</b><small>23.09%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">United States</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:19.27%"></i></span><b>106</b><small>19.27%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">China</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:7.82%"></i></span><b>43</b><small>7.82%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">New Zealand</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:1.64%"></i></span><b>9</b><small>1.64%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">Japan</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:5.27%"></i></span><b>29</b><small>5.27%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">Canada</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:1.64%"></i></span><b>9</b><small>1.64%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">Brazil</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:1.27%"></i></span><b>7</b><small>1.27%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">Australia</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:1.09%"></i></span><b>6</b><small>1.09%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">Thailand</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:1.09%"></i></span><b>6</b><small>1.09%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">Spain</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:0.55%"></i></span><b>3</b><small>0.55%</small></span></div>
+              <div class="insights-country-row" role="row"><span role="cell">Egypt</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:0.55%"></i></span><b>3</b><small>0.55%</small></span></div>
+              <div class="insights-country-row insights-country-other" role="row"><span role="cell">Other Store markets</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:6.36%"></i></span><b>35</b><small>6.36%</small></span></div>
+              <div class="insights-country-row insights-country-other" role="row"><span role="cell">Additional installs · market details unavailable</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:4.00%"></i></span><b>22</b><small>4.00%</small></span></div>
               <div class="insights-country-row insights-country-other" role="row"><span role="cell">Other · outside Store report</span><span class="insights-country-value" role="cell"><span class="insights-country-bar"><i style="--country-share:0%"></i></span><b>1</b><small>not Store</small></span></div>
             </div>
           </div>
@@ -1969,8 +1889,8 @@
               <span class="insights-panel-icon" aria-hidden="true">✳</span>
             </div>
             <div class="insight-rate">
-              <div class="insight-rate-label"><span>Page view conversion</span><strong><span class="insight-number" id="insight-conversion" data-count="77.63" data-decimals="2">77.63</span>%</strong></div>
-              <div class="insight-rate-track"><i style="--rate-value:77.63%"></i></div>
+              <div class="insight-rate-label"><span>Page view conversion</span><strong><span class="insight-number" id="insight-conversion" data-count="76.60" data-decimals="2">76.60</span>%</strong></div>
+              <div class="insight-rate-track"><i style="--rate-value:76.60%"></i></div>
               <small>Of product page views resulted in an install</small>
             </div>
             <div class="insight-rate">

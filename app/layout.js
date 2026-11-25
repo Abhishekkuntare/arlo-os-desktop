@@ -75,7 +75,7 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#08090d" />
         <meta name="arlo-media-version" content={mediaManifest.version} />
       </head>
-      <body>
+      <body className="arlo-pirate-theme">
         {children}
         <WebsiteAnalytics />
         <Script src="/site/script.js" strategy="afterInteractive" />
