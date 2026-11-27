@@ -1402,7 +1402,7 @@
   toast.innerHTML = `
     <span class="arlo-celebration__spark" aria-hidden="true">✦</span>
     <div class="arlo-celebration__message">
-      <strong>551 users and counting!</strong>
+      <strong>764 users and counting!</strong>
       <span>Thanks for being part of the ARLO OS journey.</span>
     </div>
     <button class="arlo-celebration__close" type="button" aria-label="Dismiss celebration">×</button>
